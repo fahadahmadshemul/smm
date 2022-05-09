@@ -106,4 +106,21 @@ class UserController extends Controller
         $notification = array('message'=>'Verify User Successfully...!', 'alert-type'=>'success');
         return redirect()->route('admin')->with($notification);
     }
+
+    //change_password
+    public function change_my_password(){
+        return view('admin.user.change_my_password');
+    }
+    //update_password
+    public function update_my_password(Request $request){
+        $request->validate([
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+        $update = User::findOrFail(Auth::user()->id);
+        $update->password = Hash::make($request->password);
+        $update->save();
+        $notification = array('message'=> 'Change Password Successfully...!', 'alert-type'=>'info');
+        return back()->with($notification);
+    }
 }

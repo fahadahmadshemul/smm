@@ -90,11 +90,83 @@
 
   $('body').on('click', '.get_sub_location', function(){
     var val = $(this).attr('data-id');
+    $('#sub-area-list').html('');
     $.ajax({
       url: 'get-sub-location'+'/'+val,
       method: 'get',
       success: function(result){
-        console.log(result);
+        $.each(result, function (key, value) {
+          var data =  "<div class='sub-area-item-div'>"+
+                      "<input type='checkbox' name='sub_location[]' id='sub_location"+value.id+"' class='d-none'  value="+value.id+" >"+
+                      "<label for='sub_location"+value.id+"' class='sub-area-item'>"+value.sub_location_name+"</label>"
+                    "</div>";
+          $('#sub-area-list').append(data);
+        });
       }
     });
+  });
+  
+  $('body').on('click', '.get_sub_category', function(){
+    var val = $(this).attr('data-id');
+    $('#sub-category-list').html('');
+    $.ajax({
+      url: 'get-sub-category'+'/'+val,
+      method: 'get',
+      success: function(result){
+        $.each(result, function (key, value) {
+          var data = "<div class='sub-category-item-div'>"+
+                      "<input type='radio' name='sub_category' id='sub_category"+value.id+"' class='d-none'  value="+value.id+" >"+
+                      "<label for='sub_category"+value.id+"' class='sub-category-item'>"+value.sub_category_name+"</label>"
+                    "</div>"
+          $('#sub-category-list').append(data);
+        });
+      }
+    });
+  });
+  
+  $('body').on('click', '.add-new-works-step', function(){
+
+    var step_id = $(".stepid:last").html();
+    var step_id = parseInt(step_id);
+    var step = step_id+1;
+    var data = "<div class='text-label-join mb-3 bg-softer pwjs'>"+
+                    "<label for=''>Step <span class='stepid'>"+step+"</span></label>"+
+                    "<i class='stpsCloseBtn fa fa-times-circle' aria-hidden='true' ></i>"+
+                    "<textarea name='workSteps[]' class='form-control' rows='2'></textarea>"+
+                "</div>";
+          $('.post-job-work-step').append(data);
+  });
+  
+  $('body').on('click', '.stpsCloseBtn', function(){
+    $(this).closest(".pwjs").remove();
+  });
+
+  $('body').on('change', '#worker_need', function(){
+    var worker_need = $(this).val();
+    var each_worker_earn = $('#each_worker_earn').val();
+
+    var total = worker_need*each_worker_earn;
+    var total = total.toFixed(3);
+    $('#total_spend').val(total);
+
+    if(total >= 0.80){
+      $('#spend1').addClass('d-none');
+    }else{
+      $('#spend1').removeClass('d-none');
+    }
+  });
+
+  $('body').on('change', '#each_worker_earn', function(){
+    var each_worker_earn = $(this).val();
+    var worker_need = $('#worker_need').val();
+
+    var total = worker_need*each_worker_earn;
+    var total = total.toFixed(3);
+    $('#total_spend').val(total);
+
+    if(total >= 0.80){
+      $('#spend1').addClass('d-none');
+    }else{
+      $('#spend1').removeClass('d-none');
+    }
   });

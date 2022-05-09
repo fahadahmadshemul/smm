@@ -71,29 +71,11 @@
                 </div>
                 <div class="col-xl-6">
                     <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-                        <li class="nav-item">
-                            <a href="https://workupjob.com/about" class="nav-link">About Us</a>
-                        </li>
-        
-                        <li class="nav-item">
-                            <a href="https://workupjob.com/privacy-policy" class="nav-link">Privacy Policy</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="https://workupjob.com/terms" class="nav-link">Terms & Condition</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://workupjob.com/support" class="nav-link">Contact Us</a>
-                        </li>
-                    <li class="nav-item">
-                        <a href="https://workupjob.com/faq" class="nav-link">FAQ</a>
-                    </li>
-                    <li class="nav-item">
-                            <a href="https://workupjob.com/workupjob_android.apk" class="nav-link">Download Android App</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://workupjob.com/refund-policy" class="nav-link">Refund Policy</a>
-                        </li>
+                        @foreach ($pages as $item)
+                            <li class="nav-item">
+                                <a href="{{route('page', $item->page_slug)}}" class="nav-link">{{$item->page_name}}</a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>

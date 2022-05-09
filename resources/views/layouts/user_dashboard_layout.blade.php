@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SMM || @yield('title')</title>
-      <link rel="icon" type="image/x-icon" href="" />
+  <link rel="icon" type="image/x-icon" href="{{URL::to($setting->favicon)}}" />
   
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -65,10 +65,10 @@
 <div class="wrapper">
 
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
+  <!---<div class="preloader flex-column justify-content-center align-items-center">
         <img class="animation__shake" src="" alt="AdminLTELogo" height="60" width="60">
     
-  </div>
+  </div>---->
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light" id="navbar">
     <!-- Left navbar links -->
@@ -93,7 +93,7 @@
             <i class="fas fa-cogs fa-fw mr-2"></i> Setting
           </a>
           <div class="dropdown-divider"></div>
-          <a href="" class="dropdown-item">
+          <a href="{{route('change-my-password')}}" class="dropdown-item">
             <i class="fas fas fa-edit mr-2"></i> Change Password
           </a>
           <div class="dropdown-divider"></div>
@@ -142,11 +142,27 @@
                 </a>
               </li>
             @endif
-            <li class="nav-item">
+            <li class="nav-item {{Request::is('dashboard/post-job') ? 'menu-open':''}}">
               <a href="{{route('post-job')}}" class="nav-link">
                 <i class="nav-icon fas fa-plus-circle"></i>
                 <p>
                   Post A Job
+                </p>
+              </a>
+            </li>
+            <li class="nav-item {{Request::is('dashboard/ads') ? 'menu-open':''}}">
+              <a href="{{route('ads')}}" class="nav-link">
+                <i class="nav-icon fas fa-ad"></i>
+                <p>
+                  Advertisement
+                </p>
+              </a>
+            </li>
+            <li class="nav-item has-treeview {{Request::is('dashboard/notice') ? 'menu-open':''}}">
+              <a href="{{route('notice')}}" class="nav-link">
+                <i class="nav-icon fas fa-list"></i>
+                <p>
+                  Notice Board
                 </p>
               </a>
             </li>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SMM || @yield('title')</title>
-      <link rel="icon" type="image/x-icon" href="" />
+  <link rel="icon" type="image/x-icon" href="{{URL::to($setting->favicon)}}" />
   
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -62,10 +62,9 @@
 <div class="wrapper">
 
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
+  <!---<div class="preloader flex-column justify-content-center align-items-center">
         <img class="animation__shake" src="" alt="AdminLTELogo" height="60" width="60">
-    
-  </div>
+  </div>--->
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light" id="navbar">
     <!-- Left navbar links -->
@@ -90,7 +89,7 @@
             <i class="fas fa-cogs fa-fw mr-2"></i> Setting
           </a>
           <div class="dropdown-divider"></div>
-          <a href="" class="dropdown-item">
+          <a href="{{route('change-password')}}" class="dropdown-item">
             <i class="fas fas fa-edit mr-2"></i> Change Password
           </a>
           <div class="dropdown-divider"></div>
@@ -122,68 +121,141 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{route('admin')}}" class="nav-link active">
+            <a href="{{route('admin')}}" class="nav-link {{Request::is('dashboard') ? 'active':''}}">
               <i class="nav-icon fas fa-life-ring"></i>
               <p>
                 Dashboard
               </p>
             </a>
           </li>
-            <li class="nav-item has-treeview {{Request::is('admin/location') ? 'menu-open':''}}">
-              <a href="{{route('location')}}" class="nav-link">
-                <i class="nav-icon fas fa-map-marker-alt"></i>
-                <p>
-                  Location
-                </p>
-              </a>
-            </li>
-            <li class="nav-item has-treeview {{Request::is('admin/category') ? 'menu-open':''}}">
-              <a href="{{route('category')}}" class="nav-link">
-                <i class="nav-icon fas fa-list-alt"></i>
-                <p>
-                  Category
-                </p>
-              </a>
-            </li>
-            <li class="nav-item has-treeview {{Request::is('admin/all-user') ? 'menu-open':''}}">
-              <a href="{{route('all-user')}}" class="nav-link">
-                <i class="nav-icon fas fa-users"></i>
-                <p>
-                  Users
-                </p>
-              </a>
-            </li>
-            <li class="nav-item has-treeview {{Request::is('admin/setting') ? 'menu-open':''}}">
-              <a href="{{route('setting')}}" class="nav-link">
-                <i class="nav-icon fas fa-cog"></i>
-                <p>
-                  Setting
-                </p>
-              </a>
-            </li>
-            <li class="nav-item has-treeview {{Request::is('dashboard/add-chapter') || Request::is('dashboard/manage-chapter') ? 'menu-open':''}}">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-map-marker-alt"></i>
-                  <p>
-                    Location 
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
+          <li class="nav-item has-treeview {{Request::is('dashboard/all-job') || Request::is('dashboard/pending-job') || Request::is('dashboard/approved-job') || Request::is('dashboard/paused-job') || Request::is('dashboard/completed-job') ? 'menu-open':''}}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-briefcase"></i>
+              <p>
+                Jobs 
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item {{Request::is('dashboard/pending-job') ? 'active':''}}">
+                <a href="{{route('pending-job')}}" class="nav-link {{Request::is('dashboard/pending-job') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">Pending Jobs</p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item {{Request::is('dashboard/add-chapter') ? 'active':''}}">
-                    <a href="" class="nav-link {{Request::is('dashboard/add-chapter') ? 'active':''}}">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p class="sub_menu">Add Chapter</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="" class="nav-link {{Request::is('dashboard/manage-chapter') ? 'active':''}}">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p class="sub_menu">Manage Chapter</p>
-                    </a>
-                  </li>
-                </ul>
               </li>
+              <li class="nav-item">
+                <a href="{{route('approved-job')}}" class="nav-link {{Request::is('dashboard/approved-job') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">Approved Jobs</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('paused-job')}}" class="nav-link {{Request::is('dashboard/paused-job') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">Pause Jobs</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('completed-job')}}" class="nav-link {{Request::is('dashboard/completed-job') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">Complete Jobs</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('all-job')}}" class="nav-link {{Request::is('dashboard/all-job') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">All Jobs</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('dashboard/all-advertisement') || Request::is('dashboard/pending-advertisement')  ? 'menu-open':''}}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-ad"></i>
+              <p>
+                Advertisement 
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item {{Request::is('dashboard/pending-advertisement') ? 'active':''}}">
+                <a href="{{route('pending-advertisement')}}" class="nav-link {{Request::is('dashboard/pending-advertisement') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">Pending Advertisement</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('all-advertisement')}}" class="nav-link {{Request::is('dashboard/all-advertisement') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">All Advertisement</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('dashboard/location') ? 'menu-open':''}}">
+            <a href="{{route('location')}}" class="nav-link">
+              <i class="nav-icon fas fa-map-marker-alt"></i>
+              <p>
+                Location
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('dashboard/category') ? 'menu-open':''}}">
+            <a href="{{route('category')}}" class="nav-link">
+              <i class="nav-icon fas fa-list-alt"></i>
+              <p>
+                Category
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('dashboard/all-user') ? 'menu-open':''}}">
+            <a href="{{route('all-user')}}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Users
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('dashboard/notices') ? 'menu-open':''}}">
+            <a href="{{route('notices')}}" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                Notice Board
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('dashboard/add-page') || Request::is('dashboard/all-page')  ? 'menu-open':''}}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-ad"></i>
+              <p>
+                Pages 
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item {{Request::is('dashboard/add-page') ? 'active':''}}">
+                <a href="{{route('add-page')}}" class="nav-link {{Request::is('dashboard/add-page') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">Add Page</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('all-page')}}" class="nav-link {{Request::is('dashboard/all-page') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">All Page</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('dashboard/setting') ? 'menu-open':''}}">
+            <a href="{{route('setting')}}" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Setting
+              </p>
+            </a>
+          </li>
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

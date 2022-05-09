@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SubLocation;
 use App\Models\User;
+use App\Models\Page;
 use Illuminate\Support\Facades\Hash;
 use Session;
 
@@ -42,5 +43,11 @@ class SiteController extends Controller
         $save->save();
         Session::put('signup_success', 'Account Create Success. Login to your account');
         return back();
+    }
+
+    //page
+    public function page($page_slug){
+        $content = Page::where('page_slug', $page_slug)->first();
+        return view('page', compact('content'));
     }
 }

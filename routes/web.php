@@ -7,6 +7,10 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\AdminJobController;
+use App\Http\Controllers\User\AdsController;
+use App\Http\Controllers\Admin\NoticeController;
+use App\Http\Controllers\Admin\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +35,11 @@ Route::prefix('users')->group(function(){
 });
 
 Route::get('/', [SiteController::class, 'index'])->name('home');
+Route::get('page/{slug}', [SiteController::class, 'page'])->name('page');
 
-Route::middleware(['auth'])->prefix('dashboard')->group(function(){
-    Route::get('/', [AdminController::class, 'index'])->name('admin');
+Route::get('dashboard/', [AdminController::class, 'index'])->name('admin');
+Route::middleware(['auth', 'admin'])->prefix('dashboard')->group(function(){
+    
     Route::get('location', [LocationController::class, 'index'])->name('location');
     Route::post('save-location', [LocationController::class, 'save_location'])->name('save-location');
     Route::get('edit-location/{id}', [LocationController::class, 'edit_location'])->name('edit-location');
@@ -62,4 +68,30 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
 
     Route::get('setting', [SettingController::class, 'setting'])->name('setting');
     Route::post('setting/update', [SettingController::class, 'setting_update'])->name('setting.update');
+
+    Route::get('all-job', [AdminJobController::class, 'all_job'])->name('all-job');
+    Route::get('change-password', [AdminController::class, 'change_password'])->name('change-password');
+    Route::post('update-password', [AdminController::class, 'update_password'])->name('update-password');
+    Route::get('pending-job', [AdminJobController::class, 'pending_job'])->name('pending-job');
+    Route::get('approved-job', [AdminJobController::class, 'approved_job'])->name('approved-job');
+    Route::get('paused-job', [AdminJobController::class, 'paused_job'])->name('paused-job');
+    Route::get('completed-job', [AdminJobController::class, 'completed_job'])->name('completed-job');
+
+
+    Route::get('approve-job/{id}', [AdminJobController::class, 'approve_job'])->name('approve-job');
+    Route::get('pause-job/{id}', [AdminJobController::class, 'pause_job'])->name('pause-job');
+
+    Route::get('pending-advertisement', [AdsController::class, 'pending'])->name('pending-advertisement');
+    Route::get('all-advertisement', [AdsController::class, 'all'])->name('all-advertisement');
+    Route::get('approve-ads/{id}', [AdsController::class, 'approve'])->name('approve-ads');
+
+    Route::get('notices', [NoticeController::class, 'index'])->name('notices');
+    Route::post('update-notice', [NoticeController::class, 'update'])->name('update-notice');
+
+    Route::get('add-page', [PageController::class, 'add'])->name('add-page');
+    Route::post('save-page', [PageController::class, 'save'])->name('save-page');
+    Route::get('all-page', [PageController::class, 'show'])->name('all-page');
+    Route::get('edit-page/{id}', [PageController::class, 'edit'])->name('edit-page');
+    Route::post('update-page/{id}', [PageController::class, 'update'])->name('update-page');
+    Route::get('delete-page/{id}', [PageController::class, 'delete'])->name('delete-page');
 });

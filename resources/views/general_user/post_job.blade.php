@@ -3,41 +3,7 @@
     Post a Job
 @endsection
 <style>
-    .tab-active{
-        padding: 5px 10px;
-        background: #4caf50;
-        color: #fff;
-        border: 1px solid #ddd;
-    }
-    .tab-general{
-        padding: 5px 10px;
-        color: #000;
-        border: 1px solid #ddd;
-    }
-    .area-item-div{
-      display: inline-block;
-    }
-    .area-item-div {
-      margin: 10px 2px 10px 2px;
-      display: inline-block;
-    }
-    .area-item {
-      background-color: #fff;
-      border-radius: 2px;
-      border: 1px solid #eaeaea;
-      padding: 1px 6px 1px 6px;
-      outline: none;
-      font-size: 14px;
-      font-weight: bold;
-      color: black;
-    }
-    .area-item-div input[type=radio]:checked+label {
-      background-color: #22ab59;
-      color: white;
-      border-radius: 3px;
-      outline: none;
-      border: none;
-    }
+    
 </style>
 @section('content')
     <!-- Content Header (Page header) -->
@@ -66,7 +32,16 @@
                 <div class="col-md-12 mx-auto">
                     <div class="card card-default">
                         <div class="card-header">
-                          <h3 class="card-title">bs-stepper</h3>
+                          <h3 class="card-title">Post a Job</h3>
+                          @if($errors->any())
+                              <div class="alert alert-danger">
+                                  @foreach ($errors->all() as $error)
+                                  <ul>
+                                      <li> {{ $error }}</li>
+                                  </ul>
+                              @endforeach
+                              </div>
+                          @endif
                         </div>
                         <div class="card-body">
                             <div id="stepper1" class="bs-stepper">
@@ -100,48 +75,140 @@
                                   </div>
                                 </div>
                                 <div class="bs-stepper-content">
-                                  <div id="test-l-1" class="content">
-                                    <div class="area-list">
-                                      <div class="area-item-div">
-                                        <input type="radio" name="location" id="location" class="d-none get_sub_location" data-id="international" value="international" >
-                                        <label for="location" class="area-item">International</label>
-                                      </div>
-                                      @foreach ($locations as $location)
+                                  <form action="{{route('save-post-job')}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div id="test-l-1" class="content">
+                                      <div class="area-list">
                                         <div class="area-item-div">
-                                          <input type="radio" name="location" id="location{{$location->id}}" class="d-none get_sub_location" data-id="{{$location->id}}" value="{{$location->id}}">
-                                          <label for="location{{$location->id}}" class="area-item">{{$location->location_name}}</label>
+                                          <input type="radio" name="location" id="location" class="d-none get_sub_location" data-id="international" value="international" >
+                                          <label for="location" class="area-item">International</label>
                                         </div>
-                                      @endforeach
+                                        @foreach ($locations as $location)
+                                          <div class="area-item-div">
+                                            <input type="radio" name="location" id="location{{$location->id}}" class="d-none get_sub_location" data-id="{{$location->id}}" value="{{$location->id}}">
+                                            <label for="location{{$location->id}}" class="area-item">{{$location->location_name}}</label>
+                                          </div>
+                                        @endforeach
+                                      </div>
+                                      <div class="form-group">
+                                        <label class="text-sm font-weight-medium text-red mb-3" style="border: 2px solid #FF7800 !important;padding: 4px;border-radius: 5px;margin-top: 16px;">Select countries you want to hide from the selected zone <span class="text-green">(optional)</span></label>
+                                        <div class="sub-area-list" id="sub-area-list">
+                                          @foreach ($sub_locations as $item)
+                                            <div class="sub-area-item-div">
+                                              <input type="checkbox" name="sub_location[]" id="sub_location{{$item->id}}" class="d-none"  value="{{$item->id}}" >
+                                              <label for="sub_location{{$item->id}}" class="sub-area-item">{{$item->sub_location_name}}</label>
+                                            </div>
+                                          @endforeach
+                                        </div>
+                                      </div>
+                                      <a href="javascript::void(0)" onclick="stepper1.next()" class="btn btn-success">Next</a>
                                     </div>
-                                    <div class="form-group">
-                                      <label class="text-sm font-weight-medium text-red mb-3" style="border: 2px solid #FF7800 !important;padding: 4px;border-radius: 5px;margin-top: 16px;">Select countries you want to hide from the selected zone <span class="text-green">(optional)</span></label>
-                                        <div class="btn-checkboxes btn-checkboxes--small-gutter row exclude-countries int" style="display: block;">
-                                          <div class="col001">
-                                              <div class="col022">
-                                                  <input type="checkbox" id="ex-int-1" class="custom-control-input exclude-country" name="excludedCountries[]" value="al">
-                                                  <label for="ex-int-1" class="exclude-country-label  bg-gray border-0">Albania</label>
-                                              </div>
+                                    <div id="test-l-2" class="content">
+                                      <div class="category-list">
+                                        @foreach ($categories as $item)
+                                          <div class="category-item-div">
+                                            <input type="radio" name="category" id="category{{$item->id}}" class="d-none get_sub_category" data-id="{{$item->id}}" value="{{$item->id}}">
+                                            <label for="category{{$item->id}}" class="category-item">{{$item->category_name}}</label>
+                                          </div>
+                                        @endforeach
+                                      </div>
+                                      <hr style="background:red; height:3px;" >
+                                      <div class="form-group">
+                                        <h4 class="text-success">Select Sub Category</h4>
+                                        <div class="sub-category-list" id="sub-category-list">
+                                          @foreach ($sub_categories as $item)
+                                            <div class="sub-category-item-div">
+                                              <input type="radio" name="sub_category" id="sub_category{{$item->id}}" class="d-none"  value="{{$item->id}}" >
+                                              <label for="sub_category{{$item->id}}" class="sub-category-item">{{$item->sub_category_name}}</label>
+                                            </div>
+                                          @endforeach
+                                        </div>
+                                      </div>
+                                      <a href="javascript:void(0)" onclick="stepper1.previous()" class="btn btn-primary">Previous</a>
+                                      <a href="javascript:void(0)" onclick="stepper1.next()" class="btn btn-success">Next</a>
+                                      
+                                    </div>
+                                    <div id="test-l-3" class="content">
+                                      <div class="form-group">
+                                        <label for="">Write an accurate job Title</label>
+                                        <input type="text" name="job_title" required placeholder="Enter Your Job Title" class="form-control">
+                                      </div>
+                                      <div class="form-group">
+                                        <label style="color:#0f7235">What specific tasks need to be Completed</label>
+                                        <div class="post-job-require-steps required-work-steps">
+                                            <div class="post-job-work-step">
+                                                <div class="text-label-join mb-3 bg-softer pwjs">
+                                                    <label for="">Step <span class="stepid">1</span></label>
+                                                    <textarea name="workSteps[]"  class="form-control" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-icon btn-facebook add-new-works-step" type="button">
+                                                <!--<span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>-->
+                                                <span class="btn btn-success">Add Step</span>
+                                            </button>
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="">Required proof the job was Completed</label>
+                                        <textarea name="task_proof" id=""  rows="3" class="form-control"></textarea>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="exampleInputFileoption3">Thumbnail Image</label>
+                                        <div class="input-group" >
+                                          <div class="custom-file">
+                                          <input type="file" class="custom-file-input"  name="thumbnail_image" id="exampleInputFileoption3">
+                                          <label class="custom-file-label" for="exampleInputFileoption3">Select Image</label>
                                           </div>
                                         </div>
+                                      </div>
+                                      
+                                      <a href="javascript::void(0)" onclick="stepper1.previous()" class="btn btn-primary">Previous</a>
+                                      <a href="javascript::void(0)" onclick="stepper1.next()" class="btn btn-success">Next</a>
                                     </div>
-                                    <button class="btn btn-primary" onclick="stepper1.next()">Next</button>
-                                  </div>
-                                  <div id="test-l-2" class="content">
-                                    <p class="text-center">test 2</p>
-                                    <button class="btn btn-primary" onclick="stepper1.previous()">Previous</button>
-                                    <button class="btn btn-primary" onclick="stepper1.next()">Next</button>
-                                    
-                                  </div>
-                                  <div id="test-l-3" class="content">
-                                    <p class="text-center">test 3</p>
-                                    <button class="btn btn-primary" onclick="stepper1.previous()">Previous</button>
-                                    <button class="btn btn-primary" onclick="stepper1.next()">Next</button>
-                                  </div>
-                                  <div id="test-l-4" class="content">
-                                    <p class="text-center">test 4</p>
-                                    <button class="btn btn-primary" onclick="stepper1.previous()">Previous</button>
-                                    <button class="btn btn-primary" type="submit">Submit</button>
-                                  </div>
+                                    <div id="test-l-4" class="content">
+                                      <p  id="spend1" class="font-weight-bold text-red spend1 ml-3"><i class="fas fa-exclamation-triangle"></i>-please Increase your worker!<p>
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label for="">Worker Need</label>
+                                            <input type="number" name="worker_need" id="worker_need" value="5" class="form-control">
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="">Each Worker Earn</label>
+                                            <input type="number" name="each_worker_earn" id="each_worker_earn" value="0.025" class="form-control">
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="">Require Screenshots</label>
+                                            <input type="number" name="require_screenshot" value="0" class="form-control">
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="">Estimated Day</label>
+                                            <input type="number" name="estimated_day" value="1" class="form-control">
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <div class="card">
+                                            <div class="card-header">
+                                              <p class="text-center">Estimated Job Cost</p>
+                                            </div>
+                                            <div class="card-body">
+                                              <div class="form-group">
+                                                <div class="input-group mb-2">
+                                                  <div class="input-group-prepend">
+                                                    <div class="input-group-text bg-white">$</div>
+                                                  </div>
+                                                  <input type="text" name="total_spend" readonly class="form-control" style="background: #fce3e5" id="total_spend" value="0.131">
+                                                </div>
+                                                <p class="text-center text-danger">Minimum spend $0.80 </p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <a href="javascript::void(0)" onclick="stepper1.previous()" class="btn btn-primary">Previous</a>
+                                      <button class="btn btn-success" type="submit">Submit</button>
+                                    </div>
+                                  </form>
                                 </div>
                             </div>
                         </div>
