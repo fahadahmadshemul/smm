@@ -1,3 +1,4 @@
+
   /**===== find location */ 
   $('body').on('click', '#main_location', function(){
     
@@ -8,7 +9,6 @@
       success: function(result){
         $("#location_name").val(result.location_name);
         $("#location_id").val(result.id);
-        console.log(result);
       }
     });
   });
@@ -22,7 +22,6 @@
       success: function(result){
         $("#sub_location_name").val(result.sub_location_name);
         $("#sub_location_id").val(result.id);
-        console.log(result);
       }
     });
   });
@@ -37,7 +36,6 @@
         success: function(result){
           $("#category_name").val(result.category_name);
           $("#category_id").val(result.id);
-          console.log(result);
         }
       });
     });
@@ -51,7 +49,6 @@
         success: function(result){
           $("#sub_category_name").val(result.sub_category_name);
           $("#sub_category_id").val(result.id);
-          console.log(result);
         }
       });
     });
@@ -170,3 +167,73 @@
       $('#spend1').removeClass('d-none');
     }
   });
+
+  $('body').on('click', '.withdraw_payment_method', function(){
+    $('#withdraw_amount').val(3.5294);
+    var percent = (3.5294*10)/100;
+    var total = (3.5294+percent);
+    var total =  total.toFixed(3);
+    var check_total = parseInt(total);
+
+    $.ajax({
+      url: 'get-user-amount',
+      method: 'get',
+      success: function(result){
+        if(result){
+          var result = parseInt(result);
+          if(result > check_total){
+            $('#ddTotal').html('Total');
+            $('#ddTotal').removeClass('bg-danger');
+            $('#withdraw_submit').prop('disabled', false);
+          }else{
+            $('#ddTotal').html('INSUFFICIENT');
+            $('#ddTotal').addClass('bg-danger');
+            $('#withdraw_submit').prop('disabled', true);
+          }
+        }else{
+          $('#ddTotal').html('INSUFFICIENT');
+          $('#ddTotal').addClass('bg-danger');
+          $('#withdraw_submit').prop('disabled', true);
+        }
+      }
+    });
+
+    $('#total_withdraw').val('$'+total);
+    $('#withdraw_message').removeClass('d-none');
+  });
+  
+  $('body').on('change', '#withdraw_amount', function(){
+    var amount = $(this).val();
+    var percent = (amount*10)/100;
+    var total = parseFloat(amount) + parseFloat(percent);
+    var total =  total.toFixed(3);
+    var check_total = parseInt(total);
+
+    $.ajax({
+      url: 'get-user-amount',
+      method: 'get',
+      success: function(result){
+        if(result){
+          var result = parseInt(result);
+          if(result > check_total){
+            $('#ddTotal').html('Total');
+            $('#ddTotal').removeClass('bg-danger');
+            $('#withdraw_submit').prop('disabled', false);
+          }else{
+            $('#ddTotal').html('INSUFFICIENT');
+            $('#ddTotal').addClass('bg-danger');
+            $('#withdraw_submit').prop('disabled', true);
+          }
+        }else{
+          $('#ddTotal').html('INSUFFICIENT');
+          $('#ddTotal').addClass('bg-danger');
+          $('#withdraw_submit').prop('disabled', true);
+        }
+      }
+    });
+
+    $('#total_withdraw').val('$'+total);
+    $('#withdraw_message').removeClass('d-none');
+  });
+
+  

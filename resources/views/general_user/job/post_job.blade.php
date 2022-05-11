@@ -131,7 +131,7 @@
                                     <div id="test-l-3" class="content">
                                       <div class="form-group">
                                         <label for="">Write an accurate job Title</label>
-                                        <input type="text" name="job_title" required placeholder="Enter Your Job Title" class="form-control">
+                                        <input type="text" name="job_title" required  class="form-control">
                                       </div>
                                       <div class="form-group">
                                         <label style="color:#0f7235">What specific tasks need to be Completed</label>
@@ -175,7 +175,7 @@
                                           </div>
                                           <div class="form-group">
                                             <label for="">Each Worker Earn</label>
-                                            <input type="number" name="each_worker_earn" id="each_worker_earn" value="0.025" class="form-control">
+                                            <input type="number" name="each_worker_earn" id="each_worker_earn" required class="form-control">
                                           </div>
                                           <div class="form-group">
                                             <label for="">Require Screenshots</label>
@@ -206,7 +206,7 @@
                                         </div>
                                       </div>
                                       <a href="javascript::void(0)" onclick="stepper1.previous()" class="btn btn-primary">Previous</a>
-                                      <button class="btn btn-success" type="submit">Submit</button>
+                                      <button class="btn btn-success" id="post_job_submit_button" type="submit">Submit</button>
                                     </div>
                                   </form>
                                 </div>

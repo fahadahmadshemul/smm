@@ -11,6 +11,9 @@ use App\Http\Controllers\Admin\AdminJobController;
 use App\Http\Controllers\User\AdsController;
 use App\Http\Controllers\Admin\NoticeController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PaymentMethodController;
+use App\Http\Controllers\Admin\AdminDepositController;
+use App\Http\Controllers\Admin\AdminWithDrawController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,4 +97,23 @@ Route::middleware(['auth', 'admin'])->prefix('dashboard')->group(function(){
     Route::get('edit-page/{id}', [PageController::class, 'edit'])->name('edit-page');
     Route::post('update-page/{id}', [PageController::class, 'update'])->name('update-page');
     Route::get('delete-page/{id}', [PageController::class, 'delete'])->name('delete-page');
+
+    Route::get('payment-method', [PaymentMethodController::class, 'index'])->name('payment-method');
+    Route::get('add-payment-method', [PaymentMethodController::class, 'add'])->name('add-payment-method');
+    Route::post('save-payment-method', [PaymentMethodController::class, 'save'])->name('save-payment-method');
+    Route::get('edit-payment-method/{id}', [PaymentMethodController::class, 'edit'])->name('edit-payment-method');
+    Route::post('update-payment-method/{id}', [PaymentMethodController::class, 'update'])->name('update-payment-method');
+    Route::get('delete-payment-method/{id}', [PaymentMethodController::class, 'delete'])->name('delete-payment-method');
+
+    Route::get('pending-deposit', [AdminDepositController::class, 'pending_deposit'])->name('pending-deposit');
+    Route::get('approve-deposit', [AdminDepositController::class, 'approve_deposit'])->name('approve-deposit');
+    Route::get('all-deposit', [AdminDepositController::class, 'all_deposit'])->name('all-deposit');
+    Route::get('make-apporve-deposit/{id}', [AdminDepositController::class, 'make_approve_deposit'])->name('make-apporve-deposit');
+    Route::get('deline-deposit/{id}', [AdminDepositController::class, 'decline_deposit'])->name('deline-deposit');
+
+    Route::get('all-withdraw', [AdminWithDrawController::class, 'all_withdraw'])->name('all-withdraw');
+    Route::get('pending-withdraw', [AdminWithDrawController::class, 'pending_withdraw'])->name('pending-withdraw');
+    Route::get('completed-withdraw', [AdminWithDrawController::class, 'completed_withdraw'])->name('completed-withdraw');
+    Route::get('complete-withdraw/{id}', [AdminWithDrawController::class, 'complete_withdraw'])->name('complete-withdraw');
+    
 });

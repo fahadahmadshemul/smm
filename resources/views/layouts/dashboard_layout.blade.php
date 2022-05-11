@@ -169,6 +169,72 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item has-treeview {{Request::is('dashboard/all-deposit') || Request::is('dashboard/pending-deposit') || Request::is('dashboard/approve-deposit')  ? 'menu-open':''}}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-money-check-alt"></i>
+              <p>
+                Deposits 
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('pending-deposit')}}" class="nav-link {{Request::is('dashboard/pending-deposit') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">Pending Deposits</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('approve-deposit')}}" class="nav-link {{Request::is('dashboard/approve-deposit') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">Approved Deposits</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('all-deposit')}}" class="nav-link {{Request::is('dashboard/all-deposit') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">All Deposits</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('dashboard/all-withdraw') || Request::is('dashboard/pending-withdraw') || Request::is('dashboard/completed-withdraw')  ? 'menu-open':''}}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-wallet"></i>
+              <p>
+                Withdraw 
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('pending-withdraw')}}" class="nav-link {{Request::is('dashboard/pending-withdraw') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">Pending Withdraw</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('completed-withdraw')}}" class="nav-link {{Request::is('dashboard/completed-withdraw') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">Completed Withdraw</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('all-withdraw')}}" class="nav-link {{Request::is('dashboard/all-withdraw') ? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p class="sub_menu">All Withdraw</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('dashboard/payment-method') || Request::is('dashboard/add-payment-method') ? 'menu-open':''}}">
+            <a href="{{route('payment-method')}}" class="nav-link">
+              <i class="nav-icon fas fa-money-bill"></i>
+              <p>
+                Payment Method
+              </p>
+            </a>
+          </li>
           <li class="nav-item has-treeview {{Request::is('dashboard/all-advertisement') || Request::is('dashboard/pending-advertisement')  ? 'menu-open':''}}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-ad"></i>
@@ -355,7 +421,8 @@
     $('#example').DataTable( {
         "paging":   false,
         "ordering": false,
-        "info":     false
+        "info":     false,
+        "responsive": true,
     } );
 
   </script>
@@ -418,6 +485,40 @@
           text: 'Do you want to delete this?',
           showCancelButton: true,
           confirmButtonText: 'Delete',
+          confirmButtonColor: '#e3342f',
+      }).then((result) => {
+          if (result.isConfirmed) {
+              window.location.href = link;
+          }else{
+            swal.fire('Safe Data');
+          }
+      });
+    });
+    $(document).on('click', '#Approve', function(e){
+      e.preventDefault();
+      var link = $(this).attr('href');
+      Swal.fire({
+          icon: 'warning',
+          text: 'Do you want to Approve this?',
+          showCancelButton: true,
+          confirmButtonText: 'Approve',
+          confirmButtonColor: '#17a2b8',
+      }).then((result) => {
+          if (result.isConfirmed) {
+              window.location.href = link;
+          }else{
+            swal.fire('Safe Data');
+          }
+      });
+    });
+    $(document).on('click', '#Decline', function(e){
+      e.preventDefault();
+      var link = $(this).attr('href');
+      Swal.fire({
+          icon: 'warning',
+          text: 'Do you want to Decline this?',
+          showCancelButton: true,
+          confirmButtonText: 'Decline',
           confirmButtonColor: '#e3342f',
       }).then((result) => {
           if (result.isConfirmed) {

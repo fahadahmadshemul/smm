@@ -1,5 +1,5 @@
 .bg-gradient-x-primary {
-    background-image: linear-gradient(to right, #535BE2 0%, #949AEF 100%);
+  background-image: linear-gradient(to right, #535BE2 0%, #727af1 100%);
     background-repeat: repeat-x;
 }
 .bg-gradient-y-success {
@@ -31,8 +31,8 @@
     background-repeat: repeat-x;
 }
 .bg-gradient-directional-danger {
-    background-image: linear-gradient(45deg, #FF394F, #FF8090);
-    background-repeat: repeat-x;
+  background-image: linear-gradient(45deg, #8bc34a, #ffc107);
+  background-repeat: repeat-x;
 }
 .bg-gradient-radial-warning {
     background-image: radial-gradient(circle, #FF7E39, #FFB280);
@@ -42,8 +42,8 @@
     background-image: radial-gradient(circle, #FF7E39, #FFB280);
     background-repeat: no-repeat;
 }
-.bg-gradient-radial-warning {
-    background-image: radial-gradient(circle, #FF7E39, #FFB280);
+.bg-gradient-radial-teo {
+    background-image: radial-gradient(circle, #b0c856, #75b63d);
     background-repeat: no-repeat;
 }
 
@@ -236,4 +236,52 @@
 #bannerPreview {
   width: 95%;
   margin: 5px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.work-done{
+  background: #ffbf00;
+    /* width: 30px; */
+    /* height: 30px; */
+    text-align: center;
+    padding: 15px;
+    color: #fff;
+    border-radius: 50%;
 }

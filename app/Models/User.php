@@ -45,4 +45,14 @@ class User extends Authenticatable
     public function country(){
         return $this->hasOne(SubLocation::class, 'id', 'country_id');
     }
+    //job
+    public function jobs(){
+        return $this->hasMany(Job::class);
+    }
+    public function withdraws(){
+        return $this->hasMany(WithDraw::class);
+    }
+    public function deposit(){
+        return $this->hasMany(ManualDeposit::class);
+    }
 }

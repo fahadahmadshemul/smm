@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Job;
 use App\Models\Advertisement;
+use App\Models\DepositWithdraw;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -25,7 +26,8 @@ class AdminController extends Controller
                 $ps_jobs = Job::where('job_status', 2)->get()->count();
                 $c_ads = Advertisement::where('status', 1)->get()->count();
                 $p_ads = Advertisement::where('status', 0)->get()->count();
-                return view('admin.index', compact('pending_user', 'job', 'p_jobs', 'c_jobs', 'ps_jobs', 'c_ads', 'p_ads'));
+                $deposit_withdraw = DepositWithdraw::findOrFail(1);
+                return view('admin.index', compact('pending_user', 'job', 'p_jobs', 'c_jobs', 'ps_jobs', 'c_ads', 'p_ads', 'deposit_withdraw'));
             }else{
                 return view('general_user.index');
             }

@@ -77,7 +77,15 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
-
+    <!-- Navbar Center--->
+    <ul class="navbar-nav mx-auto">
+      <li class="nav-item">
+        <a href="javascript:void(0)" class="btn btn-primary btn-sm">Earning : $ {{Auth::user()->earning_balance}}</a>
+      </li>
+      <li class="nav-item">
+        <a href="javascript:void(0)" class="ml-2 btn btn-success btn-sm">Deposit : $ {{Auth::user()->deposit_balance}}</a>
+      </li>
+    </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       
@@ -93,8 +101,12 @@
             <i class="fas fa-cogs fa-fw mr-2"></i> Setting
           </a>
           <div class="dropdown-divider"></div>
+          <a href="{{route('wallet')}}" class="dropdown-item">
+            <i class="fas fa-wallet mr-2"></i> Wallet
+          </a>
+          <div class="dropdown-divider"></div>
           <a href="{{route('change-my-password')}}" class="dropdown-item">
-            <i class="fas fas fa-edit mr-2"></i> Change Password
+            <i class="fas fa-edit mr-2"></i> Change Password
           </a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{{ route('logout') }}">
@@ -142,11 +154,73 @@
                 </a>
               </li>
             @endif
+            <li class="nav-item {{Request::is('dashboard/find-job') ? 'menu-open':''}}">
+              <a href="{{route('find-job')}}" class="nav-link">
+                <i class="nav-icon fas fa-search-dollar"></i>
+                <p>
+                  Find Job
+                </p>
+              </a>
+            </li>
             <li class="nav-item {{Request::is('dashboard/post-job') ? 'menu-open':''}}">
               <a href="{{route('post-job')}}" class="nav-link">
                 <i class="nav-icon fas fa-plus-circle"></i>
                 <p>
                   Post A Job
+                </p>
+              </a>
+            </li>
+            <li class="nav-item has-treeview {{Request::is('dashboard/manual-deposit') || Request::is('dashboard/pending-job') || Request::is('dashboard/approved-job') || Request::is('dashboard/paused-job') || Request::is('dashboard/completed-job') ? 'menu-open':''}}">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-money-check-alt"></i>
+                <p>
+                  Deposit 
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item {{Request::is('dashboard/pending-job') ? 'active':''}}">
+                  <a href="{{route('pending-job')}}" class="nav-link {{Request::is('dashboard/pending-job') ? 'active':''}}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p class="sub_menu">Instant Deposit</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('manual-deposit')}}" class="nav-link {{Request::is('dashboard/manual-deposit') ? 'active':''}}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p class="sub_menu">Manual Deposit</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item has-treeview {{Request::is('dashboard/withdraw-history') || Request::is('dashboard/deposit-history')  ? 'menu-open':''}}">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-donate"></i>
+                <p>
+                  Transcation 
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item ">
+                  <a href="{{route('withdraw-history')}}" class="nav-link {{Request::is('dashboard/withdraw-history') ? 'active':''}}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p class="sub_menu">Withdraw</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('deposit-history')}}" class="nav-link {{Request::is('dashboard/deposit-history') ? 'active':''}}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p class="sub_menu">Deposit</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item {{Request::is('dashboard/my-job') ? 'menu-open':''}}">
+              <a href="{{route('my-job')}}" class="nav-link">
+                <i class="nav-icon fas fa-briefcase"></i>
+                <p>
+                  My Job
                 </p>
               </a>
             </li>
@@ -172,6 +246,7 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+  
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -290,6 +365,8 @@
                   {
                     "closeButton": true,
                     "progressBar": true,
+                    "timeOut": 10000,
+                    "extendedTimeOut": 10000,
                   }
               toastr.info("{{Session::get('message')}}");
               break;
@@ -297,7 +374,9 @@
           toastr.options =
               {
                 "closeButton" : true,
-                "progressBar" : true
+                "progressBar" : true,
+                "timeOut ": 10000,
+                "extendedTimeOut": 10000,
               }
               toastr.success("{{Session::get('message')}}");
               break;
@@ -305,7 +384,9 @@
           toastr.options =
               {
                 "closeButton" : true,
-                "progressBar" : true
+                "progressBar" : true,
+                "timeOut ": 10000,
+                "extendedTimeOut": 10000,
               }
               toastr.warning("{{Session::get('message')}}");
               break;
@@ -313,7 +394,9 @@
           toastr.options =
               {
                 "closeButton" : true,
-                "progressBar" : true
+                "progressBar" : true,
+                "timeOut ": 10000,
+                "extendedTimeOut": 10000,
               }
               toastr.error("{{Session::get('message')}}");
               break;
@@ -346,6 +429,7 @@
 <script src="{{asset('/')}}public/Backend/plugins/select2/js/select2.full.min.js"></script>
 <!-- dropzonejs -->
 <script src="{{asset('/')}}public/Backend/plugins/dropzone/min/dropzone.min.js"></script>
+<script src="https://cdn.jsdelivr.net/clipboard.js/1.5.12/clipboard.min.js"></script>
 <script>
   $(function () {
     //Initialize Select2 Elements
@@ -378,6 +462,21 @@
   })
   var stepper4 = new Stepper(document.querySelector('#stepper4'))
 </script>
-
+<script>
+  $(function(){
+  new Clipboard('.copy-text');
+});
+  
+</script>
+<script>
+  var loadFile = function(event, id) {
+    var output = id;
+    console.log(output);
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  };
+</script>
 </body>
 </html>

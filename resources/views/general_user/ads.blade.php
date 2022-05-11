@@ -49,11 +49,11 @@
                           <div class="card-body">
                             <div class="form-group">
                                 <label for="">Ads Title</label>
-                                <input type="text" placeholder="Ads Title" name="ads_title" class="form-control">
+                                <input type="text"  name="ads_title" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Target Destination</label>
-                                <input type="text" placeholder="Target Destination" name="target_destination" class="form-control">
+                                <input type="text" name="target_destination" class="form-control">
                             </div>
                             <div class="ads-package">
                                 <div class="row">

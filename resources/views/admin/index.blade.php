@@ -118,6 +118,36 @@
               </div>
               <div class="col-lg-3 col-6">
                 <!-- small card -->
+                  <div class="small-box bg-gradient-directional-danger text-light">
+                      <div class="inner">
+                          <h3><small>$</small>@convert($deposit_withdraw->total_deposit)</h3>
+                      <p>Total Deposit</p>
+                      </div>
+                      <div class="icon">
+                        <i class="fas fa-dollar-sign"></i>
+                      </div>
+                      <a href="{{route('all-deposit')}}" class="small-box-footer">
+                      More info <i class="fas fa-arrow-circle-right"></i>
+                      </a>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-6">
+                <!-- small card -->
+                  <div class="small-box bg-gradient-radial-teo text-light">
+                      <div class="inner">
+                          <h3><small>$</small>@convert($deposit_withdraw->total_withdraw)</h3>
+                      <p>Total Withdraw</p>
+                      </div>
+                      <div class="icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                      </div>
+                      <a href="{{route('pending-advertisement')}}" class="small-box-footer">
+                      More info <i class="fas fa-arrow-circle-right"></i>
+                      </a>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-6">
+                <!-- small card -->
                 <div class="small-box shadow-lg bg-gradient-radial-warning text-light">
                     <div class="inner">
                         <h3>{{$pending_user}}</h3>

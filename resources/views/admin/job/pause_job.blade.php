@@ -49,7 +49,7 @@
                                     <td>{{$i}}</td>
                                     <td>{{$item->job_id}}</td>
                                     <td>{{$item->job_title}}</td>
-                                    <td></td>
+                                    <td>{{$item->work_done}} of {{$item->worker_need}}</td>
                                     <td>{{$item->total_spend}}</td>
                                     <td>
                                         @if($item->job_status == 2)
@@ -67,6 +67,9 @@
                                           </div>
                                     </td>
                                 </tr>
+                                @php
+                                    $i++;
+                                @endphp
                             @endforeach
                         </tbody>
                     </table>

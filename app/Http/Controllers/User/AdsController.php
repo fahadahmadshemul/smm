@@ -25,7 +25,6 @@ class AdsController extends Controller
 
         $save = new Advertisement;
         $save->user_id = Auth::user()->id;
-        $save->user_id = Auth::user()->id;
         $save->ads_id = uniqid();
         $save->ads_title = $request->ads_title;
         $save->target_destination = $request->target_destination;
