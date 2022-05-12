@@ -80,22 +80,26 @@
     <!-- Navbar Center--->
     <ul class="navbar-nav mx-auto">
       <li class="nav-item">
-        <a href="javascript:void(0)" class="btn btn-primary btn-sm">Earning : $ {{Auth::user()->earning_balance}}</a>
+        <a href="javascript:void(0)" class="btn btn-primary btn-sm">Earning : $ @convert(Auth::user()->earning_balance)</a>
       </li>
       <li class="nav-item">
-        <a href="javascript:void(0)" class="ml-2 btn btn-success btn-sm">Deposit : $ {{Auth::user()->deposit_balance}}</a>
+        <a href="javascript:void(0)" class="ml-2 btn btn-success btn-sm">Deposit : $ @convert(Auth::user()->deposit_balance)</a>
       </li>
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      
+      <li class="nav-item">
+        <div class="btn">
+            <div class="fb-share-button" data-href="https://developers.facebook.com/pagemag" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fpagemag&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+        </div>
+      </li>
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-user"></i>
+          <img style="max-height: 30px; border-radius:50%" src="{{URL::to(Auth::user()->real_image)}}" alt=""> <strong class="text-success">{{Auth::user()->name}}</strong>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          
+          <span class="dropdown-item dropdown-header">Hello, {{Auth::user()->name}}</span>
           <div class="dropdown-divider"></div>
           <a href="" class="dropdown-item">
             <i class="fas fa-cogs fa-fw mr-2"></i> Setting
@@ -124,7 +128,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     
-    <a href="{{route('admin')}}" class="brand-link">
+    <a href="{{route('find-job')}}" class="brand-link">
           {{-- <img src="" alt="Logo" class="img-fluid" style="opacity: 1;max-height:80px;max-width:120px;"> --}}
           
       <h4 class="text-center">User Pannel</h4>
@@ -154,7 +158,7 @@
                 </a>
               </li>
             @endif
-            <li class="nav-item {{Request::is('dashboard/find-job') ? 'menu-open':''}}">
+            <li class="nav-item {{Request::is('dashboard') ? 'menu-open':''}}">
               <a href="{{route('find-job')}}" class="nav-link">
                 <i class="nav-icon fas fa-search-dollar"></i>
                 <p>
@@ -167,6 +171,37 @@
                 <i class="nav-icon fas fa-plus-circle"></i>
                 <p>
                   Post A Job
+                </p>
+              </a>
+            </li>
+            <li class="nav-item has-treeview {{Request::is('dashboard/work') || Request::is('dashboard/work-accepted')  ? 'menu-open':''}}">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tasks"></i>
+                <p>
+                  My Work 
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item {{Request::is('dashboard/work') ? 'active':''}}">
+                  <a href="{{route('work')}}" class="nav-link {{Request::is('dashboard/work') ? 'active':''}}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p class="sub_menu">My Task</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('work-accepted')}}" class="nav-link {{Request::is('dashboard/work-accepted') ? 'active':''}}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p class="sub_menu">Accepted Task</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item {{Request::is('dashboard/my-job') ? 'menu-open':''}}">
+              <a href="{{route('my-job')}}" class="nav-link">
+                <i class="nav-icon fas fa-briefcase"></i>
+                <p>
+                  My Job
                 </p>
               </a>
             </li>
@@ -216,14 +251,7 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item {{Request::is('dashboard/my-job') ? 'menu-open':''}}">
-              <a href="{{route('my-job')}}" class="nav-link">
-                <i class="nav-icon fas fa-briefcase"></i>
-                <p>
-                  My Job
-                </p>
-              </a>
-            </li>
+            
             <li class="nav-item {{Request::is('dashboard/ads') ? 'menu-open':''}}">
               <a href="{{route('ads')}}" class="nav-link">
                 <i class="nav-icon fas fa-ad"></i>
@@ -262,11 +290,13 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
-  
+  <div id="fb-root"></div>
 </div>
 <!-- ./wrapper -->
 @include('admin.inc.modal')
+<!----facebook share plugin-------->
 
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v13.0" nonce="NKZGL6z7"></script>
 <!--jquery -->
 <script src="{{asset('/')}}public/Backend/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -414,6 +444,23 @@
           showCancelButton: true,
           confirmButtonText: 'Delete',
           confirmButtonColor: '#e3342f',
+      }).then((result) => {
+          if (result.isConfirmed) {
+              window.location.href = link;
+          }else{
+            swal.fire('Safe Data');
+          }
+      });
+    });
+    $(document).on('click', '#SatisfyAll', function(e){
+      e.preventDefault();
+      var link = $(this).attr('href');
+      Swal.fire({
+          icon: 'info',
+          text: 'Are Your Sure ?',
+          showCancelButton: true,
+          confirmButtonText: 'Satisfy All',
+          confirmButtonColor: '#28a745',
       }).then((result) => {
           if (result.isConfirmed) {
               window.location.href = link;

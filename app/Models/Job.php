@@ -20,4 +20,8 @@ class Job extends Model
     public function proves(){
         return $this->hasMany(MyWork::class);
     }
+    //user
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

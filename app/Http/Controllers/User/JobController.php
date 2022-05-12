@@ -125,7 +125,7 @@ class JobController extends Controller
     //my_job
     public function my_job(){
         $id = Auth::user()->id;
-        $collection = User::with('jobs')->where('id', $id)->first();
+        $collection = Job::where('user_id', $id)->orderBy('id', 'desc')->get();
         return view('general_user.job.my_job', compact('collection'));
     }
     //my_job_details
@@ -152,13 +152,13 @@ class JobController extends Controller
     }
     //find_job
     public function find_job(){
-        $collection = Job::orderBy('id', 'desc')->paginate(15);
+        $collection = Job::orderBy('id', 'desc')->where('job_status', 1)->paginate(15);
         return view('general_user.job.find_job', compact('collection'));
     }
     //job
     public function job($id){
         $id = base64_decode($id);
-        $content = Job::with('location', 'category')->findOrFail($id);
+        $content = Job::with('location', 'category', 'user')->findOrFail($id);
         return view('general_user.job.job_details', compact('content'));
     }
     //job_proves

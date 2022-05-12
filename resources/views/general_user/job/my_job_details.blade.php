@@ -12,7 +12,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{route('admin')}}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('find-job')}}">Home</a></li>
                 <li class="breadcrumb-item active">My Job Details</li>
               </ol>
             </div><!-- /.col -->

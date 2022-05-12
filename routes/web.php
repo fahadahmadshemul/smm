@@ -40,6 +40,7 @@ Route::prefix('users')->group(function(){
 Route::get('/', [SiteController::class, 'index'])->name('home');
 Route::get('page/{slug}', [SiteController::class, 'page'])->name('page');
 
+
 Route::get('dashboard/', [AdminController::class, 'index'])->name('admin');
 Route::middleware(['auth', 'admin'])->prefix('dashboard')->group(function(){
     

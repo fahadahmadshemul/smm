@@ -15,7 +15,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{route('admin')}}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('find-job')}}">Home</a></li>
                 <li class="breadcrumb-item active">Post a Job</li>
               </ol>
             </div><!-- /.col -->
@@ -175,7 +175,7 @@
                                           </div>
                                           <div class="form-group">
                                             <label for="">Each Worker Earn</label>
-                                            <input type="number" name="each_worker_earn" id="each_worker_earn" required class="form-control">
+                                            <input type="text" value="0.025" name="each_worker_earn" id="each_worker_earn" required class="form-control">
                                           </div>
                                           <div class="form-group">
                                             <label for="">Require Screenshots</label>

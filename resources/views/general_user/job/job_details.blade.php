@@ -12,7 +12,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{route('admin')}}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('find-job')}}">Home</a></li>
                 <li class="breadcrumb-item active">Job</li>
               </ol>
             </div><!-- /.col -->
@@ -26,7 +26,7 @@
         <div class="container-fluid">
           <!-- Small boxes (Stat box) -->
           <div class="row">
-              <div class="col-lg-8 col-12">
+              <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-7">
                         <div class="card p-3">
@@ -50,7 +50,7 @@
                     <div class="col-md-5">
                         <div class="card p-3">
                             <h2>You Can Earn</h2>
-                            <h4>$ {{$content->total_spend}}</h4>
+                            <h4 class="text-center text-success">$ {{$content->each_worker_earn}}</h4>
                         </div>
                     </div>
                 </div>
@@ -185,6 +185,26 @@
                         </div>
                     </form>
                 </div>
+              <div class="col-md-4">
+                <!-- Profile Image -->
+                  <div class="card card-primary card-outline">
+                      <div class="card-body box-profile">
+                      <div class="text-center">
+                          <img class="profile-user-img img-fluid img-circle"
+                              src="{{URL::to($content->user->real_image)}}"
+                              alt="User profile picture">
+                      <a href=""><p><strong>{{$content->user->name}}</strong> <em class="text-success">i am in online</em></p></a>
+                      </div>
+                      
+                      <ul class="list-group list-group-unbordered mb-3">
+                          <li class="list-group-item text-center">
+                          <b>Since</b> {{date('d-M-Y', strtotime($content->user->created_at))}}
+                          </li>
+                      </ul>
+                      </div>
+                      <!-- /.card-body -->
+                  </div>
+                  <!-- /.card -->
               </div>
           </div>
         </div><!-- /.container-fluid -->

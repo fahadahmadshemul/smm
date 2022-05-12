@@ -20,6 +20,7 @@ use App\Http\Controllers\User\MyWorkController;
 |
 */
 Route::middleware(['auth'])->prefix('dashboard')->group(function(){
+    Route::get('/', [JobController::class, 'find_job'])->name('find-job');
     Route::get('verify-user', [UserController::class, 'verify'])->name('verify-user');
     Route::post('verify-user', [UserController::class, 'verified'])->name('verify.user');
 
@@ -31,7 +32,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
     Route::get('my-job-details/{id}', [JobController::class, 'my_job_details'])->name('my-job-details');
     Route::get('pause-user-job/{id}', [JobController::class, 'pause_user_job'])->name('pause-user-job');
     Route::get('resume-user-job/{id}', [JobController::class, 'resume_user_job'])->name('resume-user-job');
-    Route::get('find-job', [JobController::class, 'find_job'])->name('find-job');
+    
     Route::get('job/{id}', [JobController::class, 'job'])->name('job');
     Route::get('job-proves/{id}', [JobController::class, 'job_proves'])->name('job-proves');
 
@@ -53,4 +54,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
     Route::get('deposit-history', [WithDrawController::class, 'deposit_history'])->name('deposit-history');
     
     Route::post('save-work/{id}', [MyWorkController::class, 'save'])->name('save-work');
+    Route::get('work', [MyWorkController::class, 'work'])->name('work');
+    Route::get('work-accepted', [MyWorkController::class, 'work_accepted'])->name('work-accepted');
+    Route::get('satisfy-all/{id}', [MyWorkController::class, 'satisfy_all'])->name('satisfy-all');
 });

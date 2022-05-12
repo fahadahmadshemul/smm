@@ -78,7 +78,7 @@ class UserController extends Controller
             $image_name = md5(now());
             $ext = strtolower($front_image->getClientOriginalExtension());
             $image_full_name = $image_name.'.'.$ext;
-            $upload_path = 'public/uploads/user/front_image';
+            $upload_path = 'public/uploads/user/front_image/';
             $image_url = $upload_path.$image_full_name;
             $front_image->move($upload_path, $image_full_name);
             $verify->front_image = $image_url;
@@ -87,7 +87,7 @@ class UserController extends Controller
             $image_name = md5(now());
             $ext = strtolower($back_image->getClientOriginalExtension());
             $image_full_name = $image_name.'.'.$ext;
-            $upload_path = 'public/uploads/user/back_image';
+            $upload_path = 'public/uploads/user/back_image/';
             $image_url = $upload_path.$image_full_name;
             $back_image->move($upload_path, $image_full_name);
             $verify->back_image = $image_url;
@@ -96,7 +96,7 @@ class UserController extends Controller
             $image_name = md5(now());
             $ext = strtolower($real_image->getClientOriginalExtension());
             $image_full_name = $image_name.'.'.$ext;
-            $upload_path = 'public/uploads/user/real_image';
+            $upload_path = 'public/uploads/user/real_image/';
             $image_url = $upload_path.$image_full_name;
             $real_image->move($upload_path, $image_full_name);
             $verify->real_image = $image_url;

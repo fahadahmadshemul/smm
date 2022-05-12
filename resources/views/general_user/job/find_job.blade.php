@@ -12,7 +12,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{route('admin')}}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('find-job')}}">Home</a></li>
                 <li class="breadcrumb-item active">My Job</li>
               </ol>
             </div><!-- /.col -->
@@ -32,29 +32,74 @@
                         <div id="loadData">
                             {{ csrf_field() }}
                             @foreach ($collection as $item)
-                                <a href="{{route('job', base64_encode($item->id))}}">
-                                    <div class="callout callout-info" style="padding:10px !important">
-                                        <h5>{{$item->job_title}}</h5>
-                                        <div class="row" style="padding:1px;">
-                                            <div class="col"></div>
-                                            <div class="col">
-                                                <b>
-                                                    <h6>{{$item->work_done}} of {{$item->worker_need}}</h6>
-                                                    @php
-                                                        $percent = ($item->work_done*100)/$item->worker_need;
-                                                    @endphp
-                                                </b>
-                                                <div class="progress progress-xs mb-0" style="width: 100%;margin-top: 3px">
-                                                    <div class="progress-bar bg-csgreen" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: {{$percent}}%;"></div>
+                              @php
+                                  $sub_location_id = $item->sub_location_id;
+                                  $is_done = App\Models\WorkDone::where('job_id', $item->id)->where('user_id', \Auth::user()->id)->get()->count();
+                              @endphp
+                              @if ($item->worker_need > $item->work_done)
+                                @if ($is_done == 0)
+                                  @if ($sub_location_id != NULL)
+                                  @php
+                                      $sub_locations = explode('|', $sub_location_id)
+                                  @endphp
+                                  @if ($country_id = Auth::user()->country_id)
+                                    @php
+                                        $country_id = Auth::user()->country_id
+                                    @endphp
+                                    @if (!in_array($country_id, $sub_locations))
+                                      <a href="{{route('job', base64_encode($item->id))}}">
+                                        <div class="callout callout-info" style="padding:10px !important">
+                                            <h5>{{$item->job_title}}</h5>
+                                            <div class="row" style="padding:1px;">
+                                                <div class="col"></div>
+                                                <div class="col">
+                                                    <b>
+                                                        <h6>{{$item->work_done}} of {{$item->worker_need}}</h6>
+                                                        @php
+                                                            $percent = ($item->work_done*100)/$item->worker_need;
+                                                        @endphp
+                                                    </b>
+                                                    <div class="progress progress-xs mb-0" style="width: 100%;margin-top: 3px">
+                                                        <div class="progress-bar bg-csgreen" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: {{$percent}}%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col text-center" style="color:#1D8348">
+                                                    $ <b>{{$item->each_worker_earn}}</b>
+                                                    <p></p>
                                                 </div>
                                             </div>
-                                            <div class="col text-center" style="color:#1D8348">
-                                                $ <b>{{$item->each_worker_earn}}</b>
-                                                <p></p>
-                                            </div>
                                         </div>
-                                    </div>
-                                </a>
+                                      </a>
+                                    @endif
+                                  @endif
+                                  @else
+                                    <a href="{{route('job', base64_encode($item->id))}}">
+                                      <div class="callout callout-info" style="padding:10px !important">
+                                          <h5>{{$item->job_title}}</h5>
+                                          <div class="row" style="padding:1px;">
+                                              <div class="col"></div>
+                                              <div class="col">
+                                                  <b>
+                                                      <h6>{{$item->work_done}} of {{$item->worker_need}}</h6>
+                                                      @php
+                                                          $percent = ($item->work_done*100)/$item->worker_need;
+                                                      @endphp
+                                                  </b>
+                                                  <div class="progress progress-xs mb-0" style="width: 100%;margin-top: 3px">
+                                                      <div class="progress-bar bg-csgreen" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: {{$percent}}%;"></div>
+                                                  </div>
+                                              </div>
+                                              <div class="col text-center" style="color:#1D8348">
+                                                  $ <b>{{$item->each_worker_earn}}</b>
+                                                  <p></p>
+                                              </div>
+                                          </div>
+                                      </div>
+                                    </a>
+                                  @endif
+                                @endif
+                              @else
+                              @endif
                             @endforeach
                         </div>
                         <div >

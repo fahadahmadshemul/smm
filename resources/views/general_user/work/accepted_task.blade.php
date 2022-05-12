@@ -1,6 +1,6 @@
 @extends('layouts.user_dashboard_layout')
 @section('title')
-    My Job
+    Accepted Task
 @endsection
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,12 +8,12 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">My Job</h1>
+              <h1 class="m-0">Accepted Task</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{route('find-job')}}">Home</a></li>
-                <li class="breadcrumb-item active">My Job</li>
+                <li class="breadcrumb-item active">Accepted Task</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -32,11 +32,9 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Job Id</th>
-                                <th>Job Name</th>
-                                <th>Progress</th>
-                                <th>Cost</th>
-                                <th>Status</th>
+                                <th>Task Name</th>
+                                <th>Proves</th>
+                                <th>Time</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -47,22 +45,11 @@
                             @foreach ($collection as $item)
                                 <tr>
                                     <td>{{$i}}</td>
-                                    <td>{{$item->job_id}}</td>
-                                    <td>{{$item->job_title}}</td>
-                                    <td>{{$item->work_done}} of {{$item->worker_need}}</td>
-                                    <td>$ {{$item->total_spend}}</td>
+                                    <td>{{optional($item->job)->job_title}}</td>
+                                    <td>{{$item->work_proof}}</td>
+                                    <td>{{$item->created_at}}</td>
                                     <td>
-                                        @if ($item->status == 0)
-                                            <small><i class="fas fa-dot-circle text-info"></i></small> Pending
-                                        @elseif ($item->status == 1)
-                                            <small><i class="fas fa-dot-circle text-success"></i></small> Active
-                                        @elseif ($item->status == 2)
-                                            <small><i class="fas fa-times text-danger"></i></small> Pause
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{route('job-proves', base64_encode($item->id))}}" class="btn btn-success btn-xs"><i class="fas fa-check-circle"></i> Proves</a>
-                                        <a href="{{route('my-job-details', base64_encode($item->id))}}" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> Details</a>
+                                        <a href="javascript:void(0)" class="btn btn-success btn-xs"><i class="fas fa-check-circle"></i> N/A</a>
                                     </td>
                                 </tr>
                                 @php
@@ -71,6 +58,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div >
+                        <nav style="float: right;">{{$collection->links()}}</nav>
+                    </div>
                 </div>
               </div>
           </div>
