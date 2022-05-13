@@ -236,4 +236,36 @@
     $('#withdraw_message').removeClass('d-none');
   });
 
-  
+  $('body').on('click', '.satify_now', function(){
+    var val = $(this).attr('data-id');
+    $('#modal_append').html('');
+    $('#work_proof').html('');
+    $.ajax({
+      url: 'get-my-work-by-id'+'/'+val,
+      method: 'get',
+      contentType:false,
+      processData:false,
+      success: function(result){
+        if(result){
+          $.each(result.image, function (key, value) {
+            var value =   '<a target="_blank" href="'+value+'" id="screenshoot_link">'+
+                '<div id="screenshoot">'+
+                  '<img class="img-fluid" src="'+value+'" id="screenshoot" alt="">'+
+                  '<br>'+
+                '</div>'+
+              '</a>';
+              $('#modal_append').append(value);
+          });
+          $('#work_proof').html(result.data.work_proof);
+          $('#my_work_id').val(result.data.id);
+        }
+        consol.log(result);
+        
+      }
+    });
+  }); 
+
+  //give_tips_button
+  $('body').on('click', '.give_tips_button', function(){
+    $('#tips_amount').toggleClass('d-none');
+  });

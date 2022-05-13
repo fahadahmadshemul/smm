@@ -36,7 +36,7 @@
                       <table class="table">
                         <thead>
                           <tr>
-                            <th>Action</th>
+                            <th>Prove ID</th>
                             <th>Work Name</th>
                             <th>User Name</th>
                           </tr>
@@ -46,9 +46,9 @@
                               <tr>
                                 <td>
                                   @if ($item->status == 1)
-                                    <a href="" class="btn btn-info">Satisfied</a>
+                                    <a href="javascript:void(0)" class="btn btn-info">Satisfied</a>
                                   @else
-                                    <a href="" class="btn btn-success">Satisfy</a>
+                                  <a href="javascript:void(0)"  class="satify_now" data-toggle="modal" data-id="{{$item->id}}" data-target="#satisfy_modal"  >{{$item->task_id}}</a>
                                   @endif
                                 </td>
                                 <td>

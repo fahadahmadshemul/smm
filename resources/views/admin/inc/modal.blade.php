@@ -188,3 +188,71 @@
   </div>
   @endforeach
   
+
+  <!-- make single satisfy -->
+  <div class="modal fade" id="satisfy_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Rate This Prove</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{route('save-satisfy')}}" method="post">
+          @csrf
+          <input type="hidden" name="my_work_id" id="my_work_id" value="">
+          <div class="modal-body">
+            <p>Rate Now</p>
+            <div class="form-group">
+              <div class="rate" style="width: 100%">
+                <input type="radio" id="star5" name="rate" value="5" />
+                <label for="star5" title="text">5 stars</label>
+                <input type="radio" id="star4" name="rate" value="4" />
+                <label for="star4" title="text">4 stars</label>
+                <input type="radio" id="star3" name="rate" value="3" />
+                <label for="star3" title="text">3 stars</label>
+                <input type="radio" id="star2" name="rate" value="2" />
+                <label for="star2" title="text">2 stars</label>
+                <input type="radio" id="star1" name="rate" value="1" />
+                <label for="star1" title="text">1 star</label>
+              </div>
+            </div>
+            <div></div>
+            <div class="form-group">
+              <a href="javascript:void(0)" class="btn btn-info give_tips_button">Give Tips</a>
+            </div>
+            <div class="form-group d-none" id="tips_amount">
+              <label for="">Amount</label>
+              <input type="text" name="tips_amount" class="form-control">
+            </div>
+            <div class="card p-2 mt-2">
+              <h4>Submitted Prove</h2>
+              <p id="work_proof"></p>
+            </div>
+            <div class="text-center">
+              <div id="modal_append">
+                
+              </div>
+              <div class="form-group">
+                <div class="area-list">
+                  <div class="area-item-div">
+                    <input type="radio" name="status" class="d-none" id="Satisfy" required data-id="1" value="1" >
+                    <label for="Satisfy" class="area-item">Satisfy</label>
+                  </div>
+                  <div class="area-item-div area-item-div-danger">
+                    <input type="radio" name="status" class="d-none" id="UnSatisfy" required data-id="1" value="1" >
+                    <label for="UnSatisfy" class="area-item">UnSatisfy</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="submit" value="Submit" class="btn btn-success">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

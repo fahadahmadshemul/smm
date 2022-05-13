@@ -57,4 +57,6 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
     Route::get('work', [MyWorkController::class, 'work'])->name('work');
     Route::get('work-accepted', [MyWorkController::class, 'work_accepted'])->name('work-accepted');
     Route::get('satisfy-all/{id}', [MyWorkController::class, 'satisfy_all'])->name('satisfy-all');
+    Route::get('job-proves/get-my-work-by-id/{id}', [MyWorkController::class, 'get_my_work'])->name('get-my-work-by-id');
+    Route::post('save-satisfy', [MyWorkController::class, 'save_satisfy'])->name('save-satisfy');
 });

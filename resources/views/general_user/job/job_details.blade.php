@@ -191,14 +191,25 @@
                       <div class="card-body box-profile">
                       <div class="text-center">
                           <img class="profile-user-img img-fluid img-circle"
-                              src="{{URL::to($content->user->real_image)}}"
+                              src="{{URL::to(optional($content->user)->real_image)}}"
                               alt="User profile picture">
-                      <a href=""><p><strong>{{$content->user->name}}</strong> <em class="text-success">i am in online</em></p></a>
+                      <a href=""><p><strong>{{optional($content->user)->name}}</strong> <em class="text-success">i am in online</em></p></a>
                       </div>
-                      
+                      <div class="text-center">
+                          @php
+                              $review_count = App\Models\Review::where('user_id', $content->user->id)->get()->count();
+                              $avg_review_rate = App\Models\Review::where('user_id', $content->user->id)->avg('rate');
+                          @endphp
+                          <p>
+                              @if ($review_count)
+                                  {{$review_count}}
+                              @endif Reviews (@if ($avg_review_rate)
+                                  {{number_format($avg_review_rate, 0)}} <span><i style="font-weight: normal; color: #f7bc0b; font-size: 14px;" class="fas fa-star"></i></span>
+                              @endif)</p>
+                      </div>
                       <ul class="list-group list-group-unbordered mb-3">
                           <li class="list-group-item text-center">
-                          <b>Since</b> {{date('d-M-Y', strtotime($content->user->created_at))}}
+                          <b>Since</b> {{date('d-M-Y', strtotime(optional($content->user)->created_at))}}
                           </li>
                       </ul>
                       </div>

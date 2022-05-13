@@ -8,6 +8,7 @@ use App\Models\MyWork;
 use App\Models\Job;
 use App\Models\WorkDone;
 use App\Models\User;
+use App\Models\Review;
 use Auth;
 
 class MyWorkController extends Controller
@@ -98,5 +99,66 @@ class MyWorkController extends Controller
         }
         $notification = array('message'=>'Satisfy Operation Successfully Completed...!', 'alert-type'=>'info');
         return back()->with($notification);
+    }
+    //get_my_work
+    public function get_my_work($id){
+        $result = MyWork::findOrfail($id);
+        $screenshoot = explode('|', $result->screenshoot);
+        $screen = array();
+        foreach($screenshoot as $sc){
+            $screen[] = \URL::to($sc);
+        }
+        return $data = [
+            'data' => $result,
+            'image' => $screen,
+        ];
+    }
+    //save_satisfy
+    public function save_satisfy(Request $request){
+        $request->validate([
+            'my_work_id'=>'required',
+            'status'=>'required',
+        ]);
+        if($request->status == 1){
+            $my_work = MyWork::find($request->my_work_id);
+            $job = Job::findOrFail($my_work->job_id);
+
+            $each_worker_earn = $job->each_worker_earn;
+            $job->work_done = $job->work_done+1;
+
+            $my_work->earned = $each_worker_earn;
+            $my_work->status = 1;
+
+            $worker = User::findOrFail($my_work->worker_id);
+            $balance = $worker->earning_balance = $worker->earning_balance+$each_worker_earn;
+
+            if($request->rate){
+                $rate = new Review;
+                $rate->user_id = $my_work->worker_id;
+                $rate->job_id = $my_work->job_id;
+                $rate->my_work_id = $request->my_work_id;
+                $rate->rate = $request->rate;
+                $rate->save();
+            }
+
+            if($request->tips_amount > 0){
+                $murchant = User::findOrFail($job->user_id);
+                $murchant->deposit_balance = $murchant->deposit_balance - $request->tips_amount;
+                $murchant->save();
+                $worker->earning_balance = $balance+$request->tips_amount;
+                $my_work->tips = $request->tips_amount;
+            }
+            $my_work->save();
+            $job->save();
+            $worker->save();
+            $notification = array('message'=>'Satisfy Operation Successfully Completed...!', 'alert-type'=>'info');
+            return back()->with($notification);
+        }else{
+            $my_work = MyWork::find($request->my_work_id);
+            $my_work->status = 2;
+            $my_work->save();
+            $notification = array('message'=>'Unsatisfy Operation Successfully Completed...!', 'alert-type'=>'error');
+            return back()->with($notification);
+        }
     }
 }
