@@ -40,6 +40,7 @@ class AdminDepositController extends Controller
 
         if($user){
             $user->deposit_balance = $balance;
+            $user->total_deposit = $user->total_deposit + $d_balance;
             $user->save();
             $deposit_withdraw->total_deposit = $total_deposit;
             $deposit_withdraw->save();

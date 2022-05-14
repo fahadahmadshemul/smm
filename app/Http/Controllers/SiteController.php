@@ -43,6 +43,7 @@ class SiteController extends Controller
         ]);
         
         $save = new User;
+        $save->member_ship_id = rand(99999, 99999999);
         $save->name = $request->name;
         $save->email = $request->email;
         $save->country_id = $request->country;

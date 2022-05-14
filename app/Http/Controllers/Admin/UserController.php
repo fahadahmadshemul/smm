@@ -134,6 +134,42 @@ class UserController extends Controller
         $unsatisfy = MyWork::where('worker_id', $user_id)->where('status', 2)->get()->count();
         $pending = MyWork::where('worker_id', $user_id)->where('status', 2)->get()->count();
         $total_job_post = JobPoster::where('user_id', $user_id)->first();
-        return view('general_user.my_profile', compact('user', 'attend', 'satisfy', 'unsatisfy', 'pending', 'total_job_post'));
+        
+        return view('general_user.profile.my_profile', compact('user', 'attend', 'satisfy', 'unsatisfy', 'pending', 'total_job_post'));
+    }
+    //edit_profile
+    public function edit_profile($id){
+        $id = base64_decode($id);
+        $user = User::with('cnty')->findOrFail($id);
+        return view('general_user.profile.edit_profile', compact('user'));
+    }
+    //upload_image
+    public function upload_image(Request $request, $id){
+        $profile_image = $request->file('profile_image');
+        if($profile_image){
+            $user = User::findOrFail($id);
+            $image_name = md5(now());
+            $ext = strtolower($profile_image->getClientOriginalExtension());
+            $image_full_name = $image_name.'.'.$ext;
+            $upload_path = 'public/uploads/user/profile/';
+            $image_url = $upload_path.$image_full_name;
+            $profile_image->move($upload_path, $image_full_name);
+            $user->profile_image = $image_url;
+            $user->save();
+            $notification = array('message'=>'Upload User Profile Successfully...!', 'alert-type'=>'info');
+            return back()->with($notification);
+        }else{
+            $notification = array('message'=>'Something went wrong...!', 'alert-type'=>'error');
+            return back()->with($notification);
+        }
+    }
+    //account_info
+    public function account_info(Request $request, $id){
+        $user = User::findOrFail($id);
+        $user->age = $request->age;
+        $user->about_me = $request->about_me;
+        $user->save();
+        $notification = array('message'=>'Update Account Information Successfully..!', 'alert-type'=>'info');
+        return back()->with($notification);
     }
 }

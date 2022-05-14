@@ -45,6 +45,9 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
     Route::get('change-my-password', [UserController::class, 'change_my_password'])->name('change-my-password');
     Route::post('update-my-password', [UserController::class, 'update_my_password'])->name('update-my-password');
     Route::get('my-profile', [UserController::class, 'my_profile'])->name('my-profile');
+    Route::get('edit-profile/{id}', [UserController::class, 'edit_profile'])->name('edit-profile');
+    Route::post('upload-image/{id}', [UserController::class, 'upload_image'])->name('upload-image');
+    Route::post('account-info/{id}', [UserController::class, 'account_info'])->name('account-info');
 
     Route::get('manual-deposit', [DepositController::class, 'manual_deposit'])->name('manual-deposit');
     Route::post('save-deposit', [DepositController::class, 'save_deposit'])->name('save-deposit');

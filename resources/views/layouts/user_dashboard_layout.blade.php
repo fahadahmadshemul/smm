@@ -78,25 +78,33 @@
       </li>
     </ul>
     <!-- Navbar Center--->
-    <ul class="navbar-nav mx-auto">
-      <li class="nav-item">
+    <ul class="navbar-nav mx-auto ">
+      <li class="nav-item d-none d-md-block d-lg-block">
         <a href="javascript:void(0)" class="btn btn-primary btn-sm">Earning : $ @convert(Auth::user()->earning_balance)</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item d-none d-md-block d-lg-block">
         <a href="javascript:void(0)" class="ml-2 btn btn-success btn-sm">Deposit : $ @convert(Auth::user()->deposit_balance)</a>
       </li>
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <div class="btn">
+        <a class="nav-link" href="javascript:void(0)"><strong>ID : {{Auth::user()->member_ship_id}}</strong></a>
+      </li>
+      <li class="nav-item">
+        <div class="nav-link">
             <div class="fb-share-button" data-href="https://developers.facebook.com/pagemag" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fpagemag&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
         </div>
       </li>
+      
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <img style="max-height: 30px; border-radius:50%" src="{{URL::to(Auth::user()->real_image)}}" alt=""> <strong class="text-success">{{Auth::user()->name}}</strong>
+          @if (Auth::user()->profile_image == NULL)
+              <i class="fas fa-user"></i>
+          @else
+          <img style="max-height: 30px; border-radius:50%" src="{{URL::to(Auth::user()->profile_image)}}" alt="">
+          @endif
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header">Hello, {{Auth::user()->name}}</span>
@@ -135,6 +143,10 @@
     </ul>
   </nav>
   <!-- /.navbar -->
+  <div class="d-none d-sm-block d-md-none text-center">
+    <a href="javascript:void(0)" class="btn btn-primary btn-sm">Earning : $ @convert(Auth::user()->earning_balance)</a>
+    <a href="javascript:void(0)" class="ml-2 btn btn-success btn-sm">Deposit : $ @convert(Auth::user()->deposit_balance)</a>
+  </div>
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -535,6 +547,17 @@
     output.onload = function() {
       URL.revokeObjectURL(output.src) // free memory
     }
+  };
+  
+</script>
+<script>
+  var loadProfile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+    $('#profile_submit_button').removeClass('d-none');
   };
 </script>
 </body>

@@ -113,8 +113,12 @@ class JobController extends Controller
             $save->require_screenshot = $request->require_screenshot;
             $save->estimated_day = $request->estimated_day;
             $save->total_spend = $request->total_spend;
-
             $save->save();
+
+            $user = User::findOrFail(Auth::user()->id);
+            $user->deposit_balance = $user->deposit_balance - $request->total_spend;
+            $user->save();
+
             $notification = array('message'=>'Post Job Successfully.!Please Wait for Admin Approve', 'alert-type'=>'success');
             return back()->with($notification);
         }else{
@@ -152,7 +156,8 @@ class JobController extends Controller
     }
     //find_job
     public function find_job(){
-        $collection = Job::orderBy('id', 'desc')->where('job_status', 1)->paginate(15);
+        $my_id = Auth::user()->id;
+        $collection = Job::orderBy('id', 'desc')->where('job_status', 1)->where('user_id', '!=', $my_id)->paginate(15);
         return view('general_user.job.find_job', compact('collection'));
     }
     //job

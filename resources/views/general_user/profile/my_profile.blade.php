@@ -33,7 +33,7 @@
                                 <img src="https://workupjob.com/assets/img/brand/10000-0.jpg" alt="Image placeholder" class="card-img-top">
                                 <div class="row justify-content-center">
                                     <a href="#">
-                                        <img src="https://workupjob.com/image_upload/profile_images/profile_pic_3025719.jpg" class="rounded-circle" style="width:120px;height:120px">
+                                        <img src="{{URL::to($user->profile_image)}}" class="rounded-circle" style="width:120px;height:120px">
                                     </a>
                                 </div>
                                 <div class="card-body">
@@ -51,7 +51,7 @@
                                             @endif)</p>
                                         <b>Since</b> {{date('d-M-Y', strtotime(optional($user)->created_at))}}
                                         <p><i class="fas fa-map-marker"></i> {{optional($user->cnty)->sub_location_name}}</p>
-                                        <a href="" class="btn btn-primary btn-sm" style="border-radius: 30px;padding-left: 15px;padding-right: 15px;">Manage Profile</a>
+                                        <a href="{{route('edit-profile', base64_encode($user->id))}}" class="btn btn-primary btn-sm" style="border-radius: 30px;padding-left: 15px;padding-right: 15px;">Manage Profile</a>
                                     </div>
                                 </div>
                             </div>
@@ -90,15 +90,19 @@
                                     <div class="card-body">
                                         <div class="row mb-2">
                                             <div class="col-6">Jobs Posted</div>
-                                            <div class="col-6">{{$total_job_post->total_job_post}}</div>
+                                            <div class="col-6">
+                                                @if ($total_job_post != NULL)
+                                                {{$total_job_post->total_job_post}}
+                                            @endif</div>
                                         </div>
                                         <div class="row mb-2">
                                             <div class="col-6">Total Deposit</div>
-                                            <div class="col-6">{{$satisfy}}</div>
+                                            <div class="col-6">$ @if ($user->total_deposit)
+                                                {{$user->total_deposit}}
+                                            @endif</div>
                                         </div>
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
