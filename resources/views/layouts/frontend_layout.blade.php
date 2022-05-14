@@ -12,7 +12,7 @@
 <body>
     <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="https://workupjob.com">
+            <a class="navbar-brand" href="{{route('home')}}">
                 <img style="width: 35px;height: 40px;" src="https://workupjob.com/assets/img/brand/logo-transparent.png">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse"
@@ -38,7 +38,8 @@
                     </div>
                 </div>
                 <ul class="navbar-nav mr-auto">
-                                  <li class="nav-item">
+                    @guest
+                    <li class="nav-item">
                         <a href="{{route('home')}}" class="nav-link">
                             <span class="nav-link-inner--text">Home</span>
                         </a>
@@ -53,6 +54,7 @@
                             <span class="nav-link-inner--text">Register</span>
                         </a>
                     </li>
+                    @endguest
                 </ul>
             </div>
         </div>

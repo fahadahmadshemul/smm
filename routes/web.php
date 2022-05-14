@@ -31,14 +31,19 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::prefix('users')->group(function(){
+Route::middleware(['login_check'])->prefix('users')->group(function(){
     Route::get('login', [SiteController::class, 'login'])->name('user.login');
     Route::get('register', [SiteController::class, 'register'])->name('user.register');
     Route::post('save-register', [SiteController::class, 'save_register'])->name('save-register');
 });
+Route::middleware(['login_check'])->group(function(){
+    Route::get('/', [SiteController::class, 'index'])->name('home');
+});
 
-Route::get('/', [SiteController::class, 'index'])->name('home');
+
+Route::get('refer/{id}', [SiteController::class, 'refer'])->name('refer');
 Route::get('page/{slug}', [SiteController::class, 'page'])->name('page');
+Route::get('support', [SiteController::class, 'support'])->name('support');
 
 
 Route::get('dashboard/', [AdminController::class, 'index'])->name('admin');

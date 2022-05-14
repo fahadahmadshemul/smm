@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\NoticeController;
 use App\Http\Controllers\User\DepositController;
 use App\Http\Controllers\User\WithDrawController;
 use App\Http\Controllers\User\MyWorkController;
+use App\Http\Controllers\SiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ use App\Http\Controllers\User\MyWorkController;
 |
 */
 Route::middleware(['auth'])->prefix('dashboard')->group(function(){
-    Route::get('/', [JobController::class, 'find_job'])->name('find-job');
+    Route::get('/find-job', [JobController::class, 'find_job'])->name('find-job');
     Route::get('verify-user', [UserController::class, 'verify'])->name('verify-user');
     Route::post('verify-user', [UserController::class, 'verified'])->name('verify.user');
 
@@ -43,6 +44,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
 
     Route::get('change-my-password', [UserController::class, 'change_my_password'])->name('change-my-password');
     Route::post('update-my-password', [UserController::class, 'update_my_password'])->name('update-my-password');
+    Route::get('my-profile', [UserController::class, 'my_profile'])->name('my-profile');
 
     Route::get('manual-deposit', [DepositController::class, 'manual_deposit'])->name('manual-deposit');
     Route::post('save-deposit', [DepositController::class, 'save_deposit'])->name('save-deposit');
@@ -59,4 +61,8 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
     Route::get('satisfy-all/{id}', [MyWorkController::class, 'satisfy_all'])->name('satisfy-all');
     Route::get('job-proves/get-my-work-by-id/{id}', [MyWorkController::class, 'get_my_work'])->name('get-my-work-by-id');
     Route::post('save-satisfy', [MyWorkController::class, 'save_satisfy'])->name('save-satisfy');
+
+    Route::get('refer-now', [SiteController::class, 'refer_now'])->name('refer-now');
+    Route::get('top-refer', [SiteController::class, 'top_refer'])->name('top-refer');
+    Route::get('top-job-poster', [SiteController::class, 'top_job_poster'])->name('top-job-poster');
 });

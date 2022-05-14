@@ -101,12 +101,24 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header">Hello, {{Auth::user()->name}}</span>
           <div class="dropdown-divider"></div>
-          <a href="" class="dropdown-item">
-            <i class="fas fa-cogs fa-fw mr-2"></i> Setting
+          <a href="{{route('my-profile')}}" class="dropdown-item">
+            <i class="fas fa-address-card mr-2"></i> Profile
           </a>
-          <div class="dropdown-divider"></div>
           <a href="{{route('wallet')}}" class="dropdown-item">
             <i class="fas fa-wallet mr-2"></i> Wallet
+          </a>
+          <a href="{{route('top-job-poster')}}" class="dropdown-item">
+            <i class="fas fa-chart-bar mr-2"></i>  Top Job Poster
+          </a>
+          <a href="{{route('top-refer')}}" class="dropdown-item">
+            <i class="fas fa-chart-line mr-2"></i>  Top Refer
+          </a>
+          <a href="{{route('refer-now')}}" class="dropdown-item">
+            <i class="fas fa-users mr-2"></i> Refer Now
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="{{route('support')}}" class="dropdown-item">
+            <i class="fas fa-headset mr-2"></i>Support
           </a>
           <div class="dropdown-divider"></div>
           <a href="{{route('change-my-password')}}" class="dropdown-item">

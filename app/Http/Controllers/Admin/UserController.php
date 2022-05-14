@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\JobPoster;
+use App\Models\MyWork;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -122,5 +124,16 @@ class UserController extends Controller
         $update->save();
         $notification = array('message'=> 'Change Password Successfully...!', 'alert-type'=>'info');
         return back()->with($notification);
+    }
+    //my_profile
+    public function my_profile(){
+        $user_id = Auth::user()->id;
+        $user = User::with('cnty')->findOrFail($user_id);
+        $attend = MyWork::where('worker_id', $user_id)->get()->count();
+        $satisfy = MyWork::where('worker_id', $user_id)->where('status', 1)->get()->count();
+        $unsatisfy = MyWork::where('worker_id', $user_id)->where('status', 2)->get()->count();
+        $pending = MyWork::where('worker_id', $user_id)->where('status', 2)->get()->count();
+        $total_job_post = JobPoster::where('user_id', $user_id)->first();
+        return view('general_user.my_profile', compact('user', 'attend', 'satisfy', 'unsatisfy', 'pending', 'total_job_post'));
     }
 }

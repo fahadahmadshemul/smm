@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Job;
+use App\Models\JobPoster;
 
 class AdminJobController extends Controller
 {
@@ -37,6 +38,17 @@ class AdminJobController extends Controller
     public function approve_job($id){
         $save = Job::findOrFail($id);
         $save->job_status = 1;
+        //job_poster
+        $job_poster = JobPoster::where('user_id', $save->user_id)->first();
+        if($job_poster){
+            $job_poster->total_job_post = $job_poster->total_job_post+1;
+            $job_poster->save();
+        }else{
+            $job_poster = new JobPoster;
+            $job_poster->user_id = $save->user_id;
+            $job_poster->total_job_post = 1;
+            $job_poster->save();
+        }
         $save->save();
         $notification = array('message'=>'Approved Job Successfully...!', 'alert-type'=>'success');
         return back()->with($notification);

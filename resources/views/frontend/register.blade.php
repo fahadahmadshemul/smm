@@ -122,7 +122,7 @@
                               
                                 <div class="custom-control custom-checkbox mt-5">
                                     <input type="checkbox" name="Tos" id="tos" class="custom-control-input" onchange="valueChanged()" required>
-                                    <label for="tos" class="custom-control-label">I agree to workupjobs <a target="_blank" href="">Terms of Service</a> and <a target="_blank" href="">Privacy Policy.</a></label>
+                                    <label for="tos" class="custom-control-label">I agree to smm <a target="_blank" href="">Terms of Service</a> and <a target="_blank" href="">Privacy Policy.</a></label>
                                     <div id="tos-error" class="invalid-message mb-1">&nbsp;</div>
                                 </div>
                                 <div class="text-center">

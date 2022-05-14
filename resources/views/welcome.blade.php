@@ -41,7 +41,7 @@
                <div class="row align-items-center" style="margin-top: 60px">
                     <div class="col-lg-6">
                         <div class="pr-5">
-                            <h1 class="display-2 text-white font-weight-bold mb-0" >Micro Job & Best Freelance Site to Make Money Online</h1><br>
+                            <h1 class="display-2 text-white font-weight-bold mb-0" >{{Session::get('refer_id')}}Micro Job & Best Freelance Site to Make Money Online</h1><br>
                             <h2 class="display-5 text-white">Small Gigs. Big Results.</h2>
                              
                             <div class="mt-3">

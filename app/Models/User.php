@@ -55,4 +55,8 @@ class User extends Authenticatable
     public function deposit(){
         return $this->hasMany(ManualDeposit::class);
     }
+    //cnty = 
+    public function cnty(){
+        return $this->belongsTo(SubLocation::class, 'country_id', 'id');
+    }
 }

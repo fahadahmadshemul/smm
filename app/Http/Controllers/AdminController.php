@@ -29,7 +29,8 @@ class AdminController extends Controller
                 $deposit_withdraw = DepositWithdraw::findOrFail(1);
                 return view('admin.index', compact('pending_user', 'job', 'p_jobs', 'c_jobs', 'ps_jobs', 'c_ads', 'p_ads', 'deposit_withdraw'));
             }else{
-                return view('general_user.index');
+                $collection = Job::orderBy('id', 'desc')->where('job_status', 1)->paginate(15);
+                return view('general_user.job.find_job', compact('collection'));
             }
         }
     }
