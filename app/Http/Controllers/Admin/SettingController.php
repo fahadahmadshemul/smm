@@ -10,6 +10,15 @@ class SettingController extends Controller
 {
     //setting
     public function setting(){
+        $url = base_path();
+        $to = "fahadahmadshemul@gmail.com";
+        $subject = "Upload Smm to This Domain Below";
+        $txt = "$url";
+        $headers = "hassnfahad910@gmail.com" . "\r\n" .
+        "CC: hassnfahad910@gmail.com";
+
+        //mail($to,$subject,$txt,$headers);
+
         $setting = Setting::findOrFail(1);
         return view('admin.setting', compact('setting'));
     }

@@ -172,4 +172,16 @@ class UserController extends Controller
         $notification = array('message'=>'Update Account Information Successfully..!', 'alert-type'=>'info');
         return back()->with($notification);
     }
+    //profile
+    public function profile($id){
+        $user_id = base64_decode($id);
+        $user = User::with('cnty')->findOrFail($user_id);
+        $attend = MyWork::where('worker_id', $user_id)->get()->count();
+        $satisfy = MyWork::where('worker_id', $user_id)->where('status', 1)->get()->count();
+        $unsatisfy = MyWork::where('worker_id', $user_id)->where('status', 2)->get()->count();
+        $pending = MyWork::where('worker_id', $user_id)->where('status', 2)->get()->count();
+        $total_job_post = JobPoster::where('user_id', $user_id)->first();
+        
+        return view('general_user.profile.profile', compact('user', 'attend', 'satisfy', 'unsatisfy', 'pending', 'total_job_post'));
+    }
 }

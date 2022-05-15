@@ -143,7 +143,7 @@
     </ul>
   </nav>
   <!-- /.navbar -->
-  <div class="d-none d-sm-block d-md-none text-center">
+  <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none text-center">
     <a href="javascript:void(0)" class="btn btn-primary btn-sm">Earning : $ @convert(Auth::user()->earning_balance)</a>
     <a href="javascript:void(0)" class="ml-2 btn btn-success btn-sm">Deposit : $ @convert(Auth::user()->deposit_balance)</a>
   </div>
@@ -238,8 +238,8 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item {{Request::is('dashboard/pending-job') ? 'active':''}}">
-                  <a href="{{route('pending-job')}}" class="nav-link {{Request::is('dashboard/pending-job') ? 'active':''}}">
+                <li class="nav-item {{Request::is('dashboard/pending-job')|| Request::is('dashboard/instant-deposit') ? 'active':''}}">
+                  <a href="{{route('instant-deposit')}}" class="nav-link {{Request::is('dashboard/pending-job') ? 'active':''}}">
                     <i class="far fa-circle nav-icon"></i>
                     <p class="sub_menu">Instant Deposit</p>
                   </a>

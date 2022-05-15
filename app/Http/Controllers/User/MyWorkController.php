@@ -65,13 +65,13 @@ class MyWorkController extends Controller
     //work
     public function work(){
         $user_id = \Auth::user()->id;
-        $collection = MyWork::with('job')->where('worker_id', $user_id)->where('status', 1)->orderBy('id', 'desc')->paginate(20);
+        $collection = MyWork::with('job')->where('worker_id', $user_id)->where('status', 0)->orderBy('id', 'desc')->paginate(20);
         return view('general_user.work.task', compact('collection'));
     }
     //work
     public function work_accepted(){
         $user_id = \Auth::user()->id;
-        $collection = MyWork::with('job')->where('worker_id', $user_id)->where('status', 0)->orderBy('id', 'desc')->paginate(20);
+        $collection = MyWork::with('job')->where('worker_id', $user_id)->where('status', 1)->orderBy('id', 'desc')->paginate(20);
         return view('general_user.work.accepted_task', compact('collection'));
     }
     //satisfy_all 

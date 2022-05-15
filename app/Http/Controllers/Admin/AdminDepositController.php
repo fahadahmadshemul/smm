@@ -46,6 +46,15 @@ class AdminDepositController extends Controller
             $deposit_withdraw->save();
             $deposit->status = 1;
             $deposit->save();
+
+            //for referal
+            $refer_id = $user->refer_id;
+            if($refer_id != NULL){
+                $refer = User::findOrFail($refer_id);
+                $referal_income = ($d_balance*4)/100;
+                $refer->earning_balance = $refer->earning_balance +$referal_income;
+                $refer->save();
+            }
             $notification = array('message'=>'Approved Deposit Successfully...!', 'alert-type'=>'success');
             return back()->with($notification);
         }

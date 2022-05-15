@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SMM || @yield('title')</title>
   <link rel="icon" type="image/x-icon" href="{{URL::to($setting->favicon)}}" />
-  
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -85,7 +84,7 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           
           <div class="dropdown-divider"></div>
-          <a href="" class="dropdown-item">
+          <a href="{{route('setting')}}" class="dropdown-item">
             <i class="fas fa-cogs fa-fw mr-2"></i> Setting
           </a>
           <div class="dropdown-divider"></div>

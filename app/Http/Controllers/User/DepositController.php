@@ -32,4 +32,8 @@ class DepositController extends Controller
         $notification = array('message'=>'Your Deposit Request Successfully Submited.!Please Wait Your Amount will be add your Balance within 5 mins', 'alert-type'=>'success');
         return back()->with($notification);
     }
+    //instant_deposit
+    public function instant_deposit(){
+        return view('general_user.deposit.instant_deposit');
+    }
 }

@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="bg-blue py-5 px-4 rounded">
                                         <p>{{$refer_count}} User joined by your reffer link.</p>
-                                        <p style="margin-top: 10px" class="">Hello sir, you can now earn more by referring your friends. You will get 4% commission from your referral’s each completed task & 2% from your referral’s each deposit.</p>
+                                        <p style="margin-top: 10px" class="">Hello sir, you can now earn more by referring your friends. You will get 2% commission from your referral’s each deposit.</p>
                                     </div>
                                   </div>
                                   <!-- /.card-body -->

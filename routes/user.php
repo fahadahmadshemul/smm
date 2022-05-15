@@ -48,9 +48,11 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
     Route::get('edit-profile/{id}', [UserController::class, 'edit_profile'])->name('edit-profile');
     Route::post('upload-image/{id}', [UserController::class, 'upload_image'])->name('upload-image');
     Route::post('account-info/{id}', [UserController::class, 'account_info'])->name('account-info');
+    Route::get('profile/{id}', [UserController::class, 'profile'])->name('profile');
 
     Route::get('manual-deposit', [DepositController::class, 'manual_deposit'])->name('manual-deposit');
     Route::post('save-deposit', [DepositController::class, 'save_deposit'])->name('save-deposit');
+    Route::get('instant-deposit', [DepositController::class, 'instant_deposit'])->name('instant-deposit');
 
     Route::get('wallet', [WithDrawController::class, 'wallet'])->name('wallet');
     Route::get('get-user-amount', [WithDrawController::class, 'get_user_amount'])->name('get-user-amount');

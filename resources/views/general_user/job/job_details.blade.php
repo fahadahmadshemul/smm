@@ -191,9 +191,9 @@
                       <div class="card-body box-profile">
                       <div class="text-center">
                           <img class="profile-user-img img-fluid img-circle"
-                              src="{{URL::to(optional($content->user)->real_image)}}"
+                              src="{{URL::to(optional($content->user)->profile_image)}}"
                               alt="User profile picture">
-                      <a href=""><p><strong>{{optional($content->user)->name}}</strong> <em class="text-success">i am in online</em></p></a>
+                      <a href="{{route('profile', base64_encode(optional($content->user)->id))}}"><p><strong>{{optional($content->user)->name}}</strong> <em class="text-success">i am in online</em></p></a>
                       </div>
                       <div class="text-center">
                           @php
@@ -203,8 +203,10 @@
                           <p>
                               @if ($review_count)
                                   {{$review_count}}
+                                @else
+                                {{'0'}}
                               @endif Reviews (@if ($avg_review_rate)
-                                  {{number_format($avg_review_rate, 0)}} <span><i style="font-weight: normal; color: #f7bc0b; font-size: 14px;" class="fas fa-star"></i></span>
+                                  {{number_format($avg_review_rate, 0)}} @else {{'0'}} <span><i style="font-weight: normal; color: #f7bc0b; font-size: 14px;" class="fas fa-star"></i></span>
                               @endif)</p>
                       </div>
                       <ul class="list-group list-group-unbordered mb-3">
