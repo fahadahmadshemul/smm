@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\JobPoster;
 use App\Models\MyWork;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -103,9 +104,9 @@ class UserController extends Controller
             $real_image->move($upload_path, $image_full_name);
             $verify->real_image = $image_url;
         }
-        $verify->is_verified = 1;
+        $verify->is_verified = 2;
         $verify->save();
-        $notification = array('message'=>'Verify User Successfully...!', 'alert-type'=>'success');
+        $notification = array('message'=>'Verify Request Successfully send please wait for admin confirmation...!', 'alert-type'=>'success');
         return redirect()->route('admin')->with($notification);
     }
 
@@ -183,5 +184,39 @@ class UserController extends Controller
         $total_job_post = JobPoster::where('user_id', $user_id)->first();
         
         return view('general_user.profile.profile', compact('user', 'attend', 'satisfy', 'unsatisfy', 'pending', 'total_job_post'));
+    }
+
+    //view 
+    public function view ($id){
+        $user = User::with('cnty')->findOrFail($id);
+        return view('admin.user.view_user', compact('user'));
+    }
+    //make_verified
+    public function make_verified($id){
+        $user = User::findOrFail($id);
+        $user->is_verified = 1;
+        $user->save();
+        //for send notification to user
+        $notify = new Notification;
+        $notify->user_id = $user->id;
+        $notify->title = 'Verify Account';
+        $notify->description = 'Your Account has been Verified Successfully..!';
+        $notify->save();
+        $notification = array('message'=>'Make Verified User Successfully..!', 'alert-type'=>'info');
+        return back()->with($notification);
+    }
+    //make_verified
+    public function make_unverified($id){
+        $user = User::findOrFail($id);
+        $user->is_verified = 0;
+        $user->save();
+        //for send notification to user
+        $notify = new Notification;
+        $notify->user_id = $user->id;
+        $notify->title = 'Verify Account Alert';
+        $notify->description = 'Admin Make your account unverified. Please submit original infomation and aply again..!';
+        $notify->save();
+        $notification = array('message'=>'Make UnVerified User Successfully..!', 'alert-type'=>'info');
+        return back()->with($notification);
     }
 }

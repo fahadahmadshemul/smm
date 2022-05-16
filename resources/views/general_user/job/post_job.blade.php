@@ -179,7 +179,7 @@
                                           </div>
                                           <div class="form-group">
                                             <label for="">Require Screenshots</label>
-                                            <input type="number" name="require_screenshot" value="0" class="form-control">
+                                            <input type="number" name="require_screenshot" id="require_screenshot" value="0" class="form-control">
                                           </div>
                                           <div class="form-group">
                                             <label for="">Estimated Day</label>

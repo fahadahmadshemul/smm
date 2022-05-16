@@ -115,6 +115,9 @@
           <a href="{{route('wallet')}}" class="dropdown-item">
             <i class="fas fa-wallet mr-2"></i> Wallet
           </a>
+          <a href="{{route('top-depositer')}}" class="dropdown-item">
+            <i class="fas fa-chart-area mr-2"></i>  Top Depositer
+          </a>
           <a href="{{route('top-job-poster')}}" class="dropdown-item">
             <i class="fas fa-chart-bar mr-2"></i>  Top Job Poster
           </a>
@@ -281,6 +284,14 @@
                 <i class="nav-icon fas fa-ad"></i>
                 <p>
                   Advertisement
+                </p>
+              </a>
+            </li>
+            <li class="nav-item has-treeview {{Request::is('dashboard/notification') ? 'menu-open':''}}">
+              <a href="{{route('notification')}}" class="nav-link">
+                <i class="nav-icon fas fa-bell"></i>
+                <p>
+                  Notification
                 </p>
               </a>
             </li>

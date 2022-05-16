@@ -9,6 +9,7 @@ use App\Models\Job;
 use App\Models\WorkDone;
 use App\Models\User;
 use App\Models\Review;
+use App\Models\Notification;
 use Auth;
 
 class MyWorkController extends Controller
@@ -95,6 +96,13 @@ class MyWorkController extends Controller
                 $worker->save();
                 $job->save();
                 $item->save();
+
+                //notification
+                $notify = new Notification;
+                $notify->user_id = $item->worker_id;
+                $notify->title = 'Work Satisfy';
+                $notify->description = 'Your Work of  : '. $job->job_title .' is Satisfied..!';
+                $notify->save();
             }
         }
         $notification = array('message'=>'Satisfy Operation Successfully Completed...!', 'alert-type'=>'info');
@@ -119,9 +127,10 @@ class MyWorkController extends Controller
             'my_work_id'=>'required',
             'status'=>'required',
         ]);
+        $my_work = MyWork::find($request->my_work_id);
+        $job = Job::findOrFail($my_work->job_id);
         if($request->status == 1){
-            $my_work = MyWork::find($request->my_work_id);
-            $job = Job::findOrFail($my_work->job_id);
+            
 
             $each_worker_earn = $job->each_worker_earn;
             $job->work_done = $job->work_done+1;
@@ -151,12 +160,27 @@ class MyWorkController extends Controller
             $my_work->save();
             $job->save();
             $worker->save();
+
+            //notification
+            $notify = new Notification;
+            $notify->user_id = $my_work->worker_id;
+            $notify->title = 'Work Satisfy';
+            $notify->description = 'Your Work of  : '. $job->job_title .' is Satisfied..!';
+            $notify->save();
             $notification = array('message'=>'Satisfy Operation Successfully Completed...!', 'alert-type'=>'info');
             return back()->with($notification);
         }else{
             $my_work = MyWork::find($request->my_work_id);
             $my_work->status = 2;
             $my_work->save();
+
+            //notification
+            $notify = new Notification;
+            $notify->user_id = $my_work->worker_id;
+            $notify->title = 'Work UnSatisfy';
+            $notify->description = 'Your Work of  : '. $job->job_title .' is UnSatisfied. Please Work Properly';
+            $notify->save();
+
             $notification = array('message'=>'Unsatisfy Operation Successfully Completed...!', 'alert-type'=>'error');
             return back()->with($notification);
         }

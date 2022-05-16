@@ -6,7 +6,7 @@
     <!-- Main content -->
     <div class="main-content">
         <!-- Header -->
-            <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+            <div class="header py-7 py-lg-8 pt-lg-9" style="background-color: #009688 !important">
             <div class="container">
                 <div class="header-body text-center mb-7">
                     <div class="row justify-content-center">
@@ -17,9 +17,10 @@
                 </div>
             </div>
             <div class="separator separator-bottom separator-skew zindex-100">
-                <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <div class="bg-success" style="    border-radius: 100% 0% 10% 0% / 100% 100% 0% 10%; height: 70px; background: #00235e !important;"></div>
+                {{-- <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
                     <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-                </svg>
+                </svg> --}}
             </div>
         </div>
         <style>

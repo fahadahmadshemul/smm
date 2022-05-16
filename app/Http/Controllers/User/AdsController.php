@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Advertisement;
+use App\Models\Notification;
 use Auth;
 use Carbon\Carbon;
 
@@ -65,6 +66,14 @@ class AdsController extends Controller
         $approve->ad_end = $ad_end;
         $approve->status = 1;
         $approve->save();
+
+        //notification
+        $notify = new Notification;
+        $notify->user_id = $approve->user_id;
+        $notify->title = 'Advertisement Approved';
+        $notify->description = 'Your Advertisement Title: '.$approve->ads_title.' is successfully approved..!';
+        $notify->save();
+
         $notification = array('message'=>'Approved Advertisement Successfully...!', 'alert-type'=>'info');
         return back()->with($notification);
         

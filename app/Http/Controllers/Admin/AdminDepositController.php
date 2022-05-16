@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\ManualDeposit;
 use App\Models\DepositWithdraw;
 use App\Models\User;
+use App\Models\Notification;
+
 
 class AdminDepositController extends Controller
 {
@@ -54,11 +56,23 @@ class AdminDepositController extends Controller
                 $referal_income = ($d_balance*4)/100;
                 $refer->earning_balance = $refer->earning_balance +$referal_income;
                 $refer->save();
+
+                $notify = new Notification;
+                $notify->user_id = $refer->id;
+                $notify->title = 'Refer Bounus';
+                $notify->description = 'You got $ '.$referal_income.' for your referal Deposit.';
+                $notify->save();
             }
+
+            $notify = new Notification;
+            $notify->user_id = $user->id;
+            $notify->title = 'Deposit Approved';
+            $notify->description = 'Your Deposit of $ '.$d_balance.' has been successfully Approved.';
+            $notify->save();
             $notification = array('message'=>'Approved Deposit Successfully...!', 'alert-type'=>'success');
             return back()->with($notification);
         }
-        $notification = array('message'=>'Something Went Wronf...!', 'alert-type'=>'error');
+        $notification = array('message'=>'Something Went Wrong...!', 'alert-type'=>'error');
         return back()->with($notification);
     }
     //decline_deposit
@@ -66,6 +80,13 @@ class AdminDepositController extends Controller
         $deposit = ManualDeposit::findOrFail($id);
         $deposit->status = 3;
         $deposit->save();
+
+        $notify = new Notification;
+        $notify->user_id = $deposit->user_id;
+        $notify->title = 'Deposit Decline';
+        $notify->description = 'Your Deposit of $ '.$deposit->amount.' has been Decline.';
+        $notify->save();
+
         $notification = array('message'=>'Decline Deposit Successfully...!', 'alert-type'=>'error');
         return back()->with($notification);
     }

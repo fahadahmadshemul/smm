@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\WithDraw;
 use App\Models\DepositWithdraw;
+use App\Models\Notification;
 
 class AdminWithDrawController extends Controller
 {
@@ -33,6 +34,14 @@ class AdminWithDrawController extends Controller
         $deposit_withdraw->total_withdraw = $deposit_withdraw->total_withdraw+$amount;
         $withdraw->save();
         $deposit_withdraw->save();
+
+        //notification
+        $notify = new Notification;
+        $notify->user_id = $withdraw->user_id;
+        $notify->title = 'WithDraw Completed';
+        $notify->description = 'Your WithDraw Request of : '. $withdraw->amount .' is Successfully Completed..!';
+        $notify->save();
+
         $notification = array('message'=>'Complete Withdraw Successfully...!', 'alert-type'=>'info');
         return back()->with($notification);
     }

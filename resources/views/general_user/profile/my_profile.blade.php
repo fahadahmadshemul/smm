@@ -44,10 +44,12 @@
                                             $avg_review_rate = App\Models\Review::where('user_id', $user->id)->avg('rate');
                                         @endphp
                                         <p>
-                                            @if ($review_count)
+                                            @if ($review_count > 0)
                                                 {{$review_count}}
-                                            @endif Reviews (@if ($avg_review_rate)
-                                                {{number_format($avg_review_rate, 0)}} <span><i style="font-weight: normal; color: #f7bc0b; font-size: 14px;" class="fas fa-star"></i></span>
+                                            @else
+                                                {{'0'}}
+                                            @endif Reviews (@if ($avg_review_rate > 0)
+                                                {{number_format($avg_review_rate, 0)}} @else {{'0'}} <span><i style="font-weight: normal; color: #f7bc0b; font-size: 14px;" class="fas fa-star"></i></span>
                                             @endif)</p>
                                         <b>Since</b> {{date('d-M-Y', strtotime(optional($user)->created_at))}}
                                         <p><i class="fas fa-map-marker"></i> {{optional($user->cnty)->sub_location_name}}</p>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\JobPoster;
+use App\Models\Notification;
 
 class AdminJobController extends Controller
 {
@@ -50,6 +51,12 @@ class AdminJobController extends Controller
             $job_poster->save();
         }
         $save->save();
+
+        $notify = new Notification;
+        $notify->user_id = $save->user_id;
+        $notify->title = 'Job Approved';
+        $notify->description = 'Your Job ID: '. $save->job_id .' Approved ';
+        $notify->save();
         $notification = array('message'=>'Approved Job Successfully...!', 'alert-type'=>'success');
         return back()->with($notification);
     }

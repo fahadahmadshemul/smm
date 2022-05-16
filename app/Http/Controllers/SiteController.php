@@ -97,4 +97,10 @@ class SiteController extends Controller
         $collection = JobPoster::with('user')->orderBy('total_job_post', 'desc')->limit(20)->get();
         return view('general_user.top.top_job_poster', compact('collection'));
     }
+    //top_depositer
+    public function top_depositer(){
+        $collection = User::where('role_id', '!=', 0)->orderBy('total_deposit', 'desc')->limit(20)->get();
+        return view('general_user.top.top_depositer', compact('collection'));
+    }
+    
 }

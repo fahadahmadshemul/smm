@@ -62,6 +62,8 @@
                                     <td>
                                         @if ($item->is_verified == 1)
                                         <small><i class="fas fa-dot-circle text-success"></i></small> Verified
+                                        @elseif ($item->is_verified == 2)
+                                        <small><i class="fas fa-dot-circle text-info"></i></small> Pending for Verify
                                         @else
                                         <small><i class="fas fa-dot-circle text-danger"></i></small> Unverified
                                         @endif
@@ -75,6 +77,7 @@
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="{{route('change-user-password', $item->id)}}"><small><i class="fas fa-edit"></i></small> Change Password</a>
                                                 <hr>
+                                                <a class="dropdown-item" href="{{route('view-user', $item->id)}}"><small><i class="fas fa-eye"></i></small> View</a>
                                                 <a class="dropdown-item" href="{{route('active-user', $item->id)}}"><small><i class="fas fa-play"></i></small> Active</a>
                                                 <a class="dropdown-item" href="{{route('block-user', $item->id)}}"><small><i class="fas fa-pause"></i> </small> Block</a>
                                             </div>

@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Location;
 use App\Models\SubLocation;
 use App\Models\SubCategory;
+use App\Models\Advertisement;
 use App\Models\Job;
 use App\Models\User;
 use Auth;
@@ -156,9 +157,15 @@ class JobController extends Controller
     }
     //find_job
     public function find_job(){
+        $ads = Advertisement::where('status', 1)
+                    ->whereDate('ad_start', '<=', date("Y-m-d"))
+                    ->whereDate('ad_end', '>=', date("Y-m-d"))
+                    ->inRandomOrder()
+                    ->limit(1)
+                    ->get();
         $my_id = Auth::user()->id;
         $collection = Job::orderBy('id', 'desc')->where('job_status', 1)->where('user_id', '!=', $my_id)->paginate(15);
-        return view('general_user.job.find_job', compact('collection'));
+        return view('general_user.job.find_job', compact('collection', 'ads'));
     }
     //job
     public function job($id){

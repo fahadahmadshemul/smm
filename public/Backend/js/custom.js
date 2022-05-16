@@ -141,32 +141,79 @@
   $('body').on('change', '#worker_need', function(){
     var worker_need = $(this).val();
     var each_worker_earn = $('#each_worker_earn').val();
+    var require_screenshot = $('#require_screenshot').val();
 
-    var total = worker_need*each_worker_earn;
-    var total = total.toFixed(3);
-    $('#total_spend').val(total);
+    if(require_screenshot > 1){
+      var total = (worker_need*each_worker_earn)+(0.10 * (require_screenshot-1));
+      var total = total.toFixed(3);
+      $('#total_spend').val(total);
 
-    if(total >= 0.80){
-      $('#spend1').addClass('d-none');
+      if(total >= 0.80){
+        $('#spend1').addClass('d-none');
+      }else{
+        $('#spend1').removeClass('d-none');
+      }
     }else{
-      $('#spend1').removeClass('d-none');
+      var total = worker_need*each_worker_earn;
+      var total = total.toFixed(3);
+      $('#total_spend').val(total);
+
+      if(total >= 0.80){
+        $('#spend1').addClass('d-none');
+      }else{
+        $('#spend1').removeClass('d-none');
+      }
     }
+    
   });
 
   $('body').on('change', '#each_worker_earn', function(){
     var each_worker_earn = $(this).val();
     var worker_need = $('#worker_need').val();
 
-    var total = worker_need*each_worker_earn;
-    var total = total.toFixed(3);
-    $('#total_spend').val(total);
+    var require_screenshot = $('#require_screenshot').val();
+    if(require_screenshot > 1){
+      var total = (worker_need*each_worker_earn)+(0.10 * (require_screenshot-1));
+      var total = total.toFixed(3);
+      $('#total_spend').val(total);
 
-    if(total >= 0.80){
-      $('#spend1').addClass('d-none');
+      if(total >= 0.80){
+        $('#spend1').addClass('d-none');
+      }else{
+        $('#spend1').removeClass('d-none');
+      }
     }else{
-      $('#spend1').removeClass('d-none');
+      var total = worker_need*each_worker_earn;
+      var total = total.toFixed(3);
+      $('#total_spend').val(total);
+
+      if(total >= 0.80){
+        $('#spend1').addClass('d-none');
+      }else{
+        $('#spend1').removeClass('d-none');
+      }
     }
   });
+  
+  $('body').on('change', '#require_screenshot', function(){
+    var require_screenshot = $(this).val();
+    var worker_need = $('#worker_need').val();
+    var each_worker_earn = $('#each_worker_earn').val();
+
+    if(require_screenshot > 1){
+      var total = (worker_need*each_worker_earn)+(0.10 * (require_screenshot-1));
+      var total = total.toFixed(3);
+      $('#total_spend').val(total);
+
+      if(total >= 0.80){
+        $('#spend1').addClass('d-none');
+      }else{
+        $('#spend1').removeClass('d-none');
+      }
+    }
+  });
+
+
 
   $('body').on('click', '.withdraw_payment_method', function(){
     $('#withdraw_amount').val(3.5294);

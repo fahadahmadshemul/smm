@@ -46,7 +46,9 @@
                               <tr>
                                 <td>
                                   @if ($item->status == 1)
-                                    <a href="javascript:void(0)" class="btn btn-info">Satisfied</a>
+                                    <a href="javascript:void(0)" class="btn btn-info">Satisfied</a> 
+                                  @elseif ($item->status == 2)
+                                    <a href="javascript:void(0)" class="btn btn-danger">UnSatisfied</a>
                                   @else
                                   <a href="javascript:void(0)"  class="satify_now" data-toggle="modal" data-id="{{$item->id}}" data-target="#satisfy_modal"  >{{$item->task_id}}</a>
                                   @endif

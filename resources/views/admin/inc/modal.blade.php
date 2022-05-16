@@ -241,7 +241,7 @@
                     <label for="Satisfy" class="area-item">Satisfy</label>
                   </div>
                   <div class="area-item-div area-item-div-danger">
-                    <input type="radio" name="status" class="d-none" id="UnSatisfy" required data-id="1" value="1" >
+                    <input type="radio" name="status" class="d-none" id="UnSatisfy" required data-id="2" value="2" >
                     <label for="UnSatisfy" class="area-item">UnSatisfy</label>
                   </div>
                 </div>

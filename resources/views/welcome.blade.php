@@ -5,8 +5,6 @@
 @section('content')
 <div class="main-content">
     <!-- Header -->
-    
-    
     <style>
         @media  only screen and (min-width: 768px) {
             .responsive-head-text {
@@ -14,14 +12,12 @@
                 width: 60% !important;
             }
         }
-
         @media  only screen and (max-width: 768px) {
             .responsive-head-text {
                 display: block;
                 width: 100%;
             }
-        }
-		
+        }		
 		.home_banner_gif {
 			width: 90%;
 			border-radius: 10px;
@@ -30,12 +26,9 @@
 		.dis{
 		    text-align:center;
 		}
-
     </style>
-    
 <div>
-    
-    <div class="header bg-primary pt-5 pb-7">
+    <div class="header pt-5 pb-7" style="background-color: #009688 !important">
      <div class="container">
             <div class="header-body">
                <div class="row align-items-center" style="margin-top: 60px">
@@ -51,33 +44,31 @@
                             </div>
                         </div>
                     </div>                
-
 					<div class="col-lg-6">
                         <div class="pr-5">
-                            <img class="home_banner_gif" src="https://workupjob.com/assets/img/brand/home_work.gif">
+                            <img class="home_banner_gif" src="{{asset('/')}}public/frontend/images/site.gif">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="separator separator-bottom separator-skew zindex-100">
-            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <div class="bg-success" style="    border-radius: 100% 0% 10% 0% / 100% 100% 0% 10%; height: 70px; background: #00235e !important;"></div>
+            {{-- <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-            </svg>
+            </svg> --}}
         </div>
     </div>
-   
-    <section class="py-6 pb-9 bg-default">
+    <section class="py-6 pb-9" style="background-color: #00235e!important;">
         <div class="container">
             <div class="text-center">
-                <h2 class="display-4 " style="color:#FDFEFE";>SMM</h2>
+                <h2 class="display-4 " style="color:#FDFEFE";>{{$setting->website_title}}</h2>
                 <p class="responsive-head-text lead text-white"style="text-align:justify;">SMM Site is a Micro Job & freelance services marketplace where you can easily earn more money and also businesses can find and hire individual contractors to do some work remotely, order a micro job, communication and get tasks done quickly 
                    and is the best micro job site in the world where freelancers around the world directly connect with business owners and get hired. It helps you to earn money online.
                 </p>
                 <p class="text-white mt-4"></p>
-                
-        </div>
             </div>
+        </div>
     </section>
     <section class="section section-lg pt-lg-0 mt--7">
         <div class="container">
@@ -104,7 +95,7 @@
                             <div class="card card-lift--hover shadow border-0">
                                 <div class="card-body py-5">
                                     <div class="icon icon-shape bg-gradient-success text-white rounded-circle mb-4">
-                                        <i class="ni ni-briefcase-24"></i>
+                                        <i class="fas fa-briefcase"></i>
                                     </div>
                                     <h4 class="h3 text-success text-uppercase">Job</h4>
                                     <p class="description mt-3">
@@ -120,7 +111,7 @@
                             <div class="card card-lift--hover shadow border-0">
                                 <div class="card-body py-5">
                                     <div class="icon icon-shape bg-gradient-warning text-white rounded-circle mb-4">
-                                        <i class="ni ni-money-coins"></i>
+                                        <i class="fas fa-coins"></i>
                                     </div>
                                     <h4 class="h3 text-uppercase" style="color:#20b6fc">Withdraw/Deposit</h4>
                                     <p class="description mt-3">
@@ -144,10 +135,6 @@
                 <div class="col-md-6 order-md-2">
                      <img src="https://workupjob.com/assets/img/brand/co.jpg" class="img-fluid">
                 </div>
-                
-                
-                
-                
                 <div class="col-md-6 order-md-1">
                     <div class="pr-md-5">
                         
@@ -183,7 +170,7 @@
                         Post your Affiliate Link on blogs, websites, forums, social media or write Workupjob review - Refer new clients or freelancers and earn commission for each referral.
                     </p>
                     <div class="btn-wrapper">
-                        <a href="https://workupjob.com/register" style="background:#;border-radius:30px;padding: 0.5em 1.25rem;" class="btn btn-primary">Start Now</a>
+                        <a href="{{route('user.register')}}" style="background:#;border-radius:30px;padding: 0.5em 1.25rem;" class="btn btn-primary">Start Now</a>
                     </div>
                 </div>
             </div>
@@ -192,10 +179,9 @@
             </div>
         </div>
     </section>
-
-<div class="text-center">
-     <img class="gateway-branding" src="https://workupjob.com/assets/img/brand/shurjopay_footer.png">
-</div>
+    <div class="text-center">
+        <img class="gateway-branding" style="height: 100px" src="{{asset('/')}}public/frontend/images/payment_methods.png">
+    </div>
 </div>
 
 

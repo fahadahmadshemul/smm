@@ -8,7 +8,9 @@ use App\Http\Controllers\Admin\NoticeController;
 use App\Http\Controllers\User\DepositController;
 use App\Http\Controllers\User\WithDrawController;
 use App\Http\Controllers\User\MyWorkController;
+use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,4 +72,9 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
     Route::get('refer-now', [SiteController::class, 'refer_now'])->name('refer-now');
     Route::get('top-refer', [SiteController::class, 'top_refer'])->name('top-refer');
     Route::get('top-job-poster', [SiteController::class, 'top_job_poster'])->name('top-job-poster');
+    Route::get('top-depositer', [SiteController::class, 'top_depositer'])->name('top-depositer');
+
+    Route::get('notification', [NotificationController::class, 'index'])->name('notification');
 });
+
+Route::get('all-blog', [AdminController::class, 'all_blog'])->name('all-blog');

@@ -6,16 +6,23 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0">My Job</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{route('find-job')}}">Home</a></li>
-                <li class="breadcrumb-item active">My Job</li>
-              </ol>
-            </div><!-- /.col -->
+          <div class="row mb-4 text-center">
+            @foreach ($ads as $ad)
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="">
+                    <h6 class="pt-2"><a class="text-muted" href="{{route('ads')}}">Paid Ads</a></h6>
+                    <hr>
+                  </div>
+                  <div class="card-body">
+                    <a target="_blank" href="{{$ad->target_destination}}">
+                      <img src="{{URL::to($ad->banner_image)}}" class="img-fluid" alt="" style="max-height: 100px">
+                    </a>
+                  </div>
+                </div>
+              </div>  
+            @endforeach
+            
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>

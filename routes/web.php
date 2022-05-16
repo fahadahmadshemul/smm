@@ -74,6 +74,9 @@ Route::middleware(['auth', 'admin'])->prefix('dashboard')->group(function(){
     Route::post('update-user-password/{id}', [UserController::class, 'update_password'])->name('update-user-password');
     Route::get('active-user/{id}', [UserController::class, 'active'])->name('active-user');
     Route::get('block-user/{id}', [UserController::class, 'block'])->name('block-user');
+    Route::get('view-user/{id}', [UserController::class, 'view'])->name('view-user');
+    Route::get('make-user-verified/{id}', [UserController::class, 'make_verified'])->name('make-user-verified');
+    Route::get('make-user-unverified/{id}', [UserController::class, 'make_unverified'])->name('make-user-unverified');
 
     Route::get('setting', [SettingController::class, 'setting'])->name('setting');
     Route::post('setting/update', [SettingController::class, 'setting_update'])->name('setting.update');
